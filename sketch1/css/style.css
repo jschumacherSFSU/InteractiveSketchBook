@@ -1,0 +1,22 @@
+body {
+    margin: 20px;
+    padding: 0;
+    overflow: hidden;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}   
+
+header {
+    padding: 25px;
+}
+
+a {
+    text-decoration: none;
+    
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #2e0264;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+    background-color:rgb(46, 2, 100, 0.7);
+}
