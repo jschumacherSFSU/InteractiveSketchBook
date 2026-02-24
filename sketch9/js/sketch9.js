@@ -28,10 +28,10 @@ function setup() {
 
     textSize(16);
     let btnL = createButton('<< Back');
-        btnL.position(20, 260);
+        btnL.position(20, 280);
         btnL.style('background-color', 'rgba(220, 220, 220, 0.9)');
     let btnR = createButton('Forward >>');
-        btnR.position(images[currentIndex].width - btnR.width+20,260);
+        btnR.position(images[currentIndex].width - btnR.width+20,280);
         btnR.style('background-color', 'rgba(220, 220, 220, 0.9)');
     btnR.mouseClicked(buttonRight);
     btnL.mouseClicked(buttonLeft);

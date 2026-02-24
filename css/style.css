@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    overflow: auto;
+    overflow: scroll;
 }
 header {
     background-color: #2e0264;
@@ -64,17 +64,53 @@ li a {
 .page-main {
     margin-left: 20px;
     background-color: white;
+    margin-bottom: 20px;
 }
 
 .page-main h1 {
+    text-align: left;
     font-size: 24pt;
-    margin-left: 20px;
     color: black;
-
 }
 
 .page-p {
     color:black;
     text-align: left;
     font-size: 1em;
+}
+.page-main ul li{
+    padding-left: 20px;
+    margin: 20px 0;
+
+}
+
+.page-main li {
+   
+    text-align: left;
+    margin: 50px 0;
+    font-size: 2rem;
+    list-style: none;
+
+}
+
+
+
+
+.page-main table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px,20px;
+}
+
+.page-main th {
+    background-color: #f2f2f2;
+    color: black;
+}
+.page-main th, .page-main td {
+    border: 1px solid #ddd;
+    padding: 8px;    
+}
+
+canvas{
+    margin-top: 25px;
 }
