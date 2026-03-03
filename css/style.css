@@ -66,6 +66,10 @@ li {
 .page-hdr{
     padding: 25px;
     background-color: white;
+    margin-bottom: 25px;
+    position: sticky;
+    top:0;
+
 }
 
 .page-main {
@@ -107,6 +111,7 @@ li {
     width: 90%;
     border-collapse: collapse;
     margin: 20px,20px;
+    table-layout: fixed;
 }
 
 .page-main th {
