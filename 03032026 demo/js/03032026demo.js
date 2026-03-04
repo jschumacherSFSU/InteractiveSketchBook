@@ -6,22 +6,15 @@ let offsetY=0;
 let startTime;
 let timeLimit = 10000;   //milisecs
 let timerStarted = false;
-let level = 1;
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);     // MEASURES FROM CENTER OF SHAPE
-   
+    // startTime = millis();
+}
 
 function draw(){
     background(0);
-
-    if (level === 1){
-        timeLimit = 10000;
-    }
-    if (level ===2){
-        timeLimit === 5000;
-    }
 
     if (timerStarted) {
     let elapsed = millis() - startTime;
