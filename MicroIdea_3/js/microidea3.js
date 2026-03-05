@@ -80,7 +80,7 @@ function draw() {
     translate(offset, offsetY); 
     // changes, the x,y
     fill(180);      
-    rect(offset+399,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
+    rect(offset+400,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
     pop();
 
     // 2
@@ -88,7 +88,7 @@ function draw() {
     translate(offset, offsetY); 
     // changes, the x,y
     fill(180);
-    rect(offset+789,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
+    rect(offset+790,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
     pop();
 
     // 3
@@ -128,7 +128,7 @@ function draw() {
 
     // ------------>>>>>>>>>>>>figure out how to center image in middle rectangle using imageMode and rectMode<<<<<<<<<<<<<<-----------------
     if (baseVisible){
-        image(images[0], offset + 404, offsetY + 100,images[0].width/1.5,images[0].height/1.5);
+        image(images[0], offset , offsetY ,images[0].width/1.5,images[0].height/1.5);
     }
     if (compareVisible){
         // user currentIndex and create counter to move through the array. put images in correct order to cycle through
