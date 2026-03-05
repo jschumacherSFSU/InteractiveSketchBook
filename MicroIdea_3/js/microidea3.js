@@ -128,7 +128,7 @@ function draw() {
 
     // ------------>>>>>>>>>>>>figure out how to center image in middle rectangle using imageMode and rectMode<<<<<<<<<<<<<<-----------------
     if (baseVisible){
-        image(images[0], offset , offsetY ,images[0].width/1.5,images[0].height/1.5);
+        image(images[0], offset , offsetY );
     }
     if (compareVisible){
         // user currentIndex and create counter to move through the array. put images in correct order to cycle through
