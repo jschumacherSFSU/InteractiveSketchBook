@@ -63,10 +63,6 @@ function setup() {
     
 }
 
-
-
-
-
 function draw() {
     // starting background is white with black border
 
