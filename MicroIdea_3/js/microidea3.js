@@ -174,7 +174,7 @@ showText1 = true;
 window.focus();
 }
 
-// ---------->>>>> START HERE TO FIGURE OUT HOW TO POST NEW TEXT, START WORKING ON THE CSV FILE IDEA, WILL BE THE SMOOTHEST IN THE LONGRUN
+// ---------->>>>> START HERE TO FIGURE OUT HOW TO POST NEW TEXT, START WORKING ON THE CSV FILE IDEA, WILL BE THE SMOOTHEST IN THE LONGRUN <<<<<<<<---------
 // 4. KeyPressed == "space" - this will begin  to iterate through arrays, swapping comparison images and text from csv file.
 function keyPressed() {
   if (key === ' '){
