@@ -9,9 +9,6 @@ let images = [];
 let currentIndex = 0;
 
 let textTable;
-let color;
-let caption;
-
 let baseVisible = false;
 let compareVisible = false;
 let show
@@ -53,42 +50,58 @@ function setup() {
     createCanvas(1180, 400);  
     background(0);
     btnCYCV = createButton("Let's Check Your Color Vision");
-    btnCYCV.position(120,550);
-    btnCYCV.size(200,50);
-    btnCYCV.style('font-size','20px');
-    btnCYCV.style('color', 'white');
-    btnCYCV.style('background-color', 'black');
+    btnCYCV.position(400 + (380/2)-btnCYCV.width/2,600);
+    btnCYCV.size(250,100);
+    btnCYCV.style('font-size','28px');
+    btnCYCV.style('color', '#333333');
+    btnCYCV.style('background-color', '#e76ef59a');
+    btnCYCV.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnCYCV.style('border-radius','10px')
     btnCYCV.mouseClicked(checkVision);
     
     btnStart = createButton("START");
-    btnStart.position(175,height+325);
+    btnStart.size(125,25)
+    btnStart.style('font-size','18px')
+    btnStart.position(380/2 - btnStart.width/2,height+325);
+    btnStart.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnStart.style('border-radius','10px');
     btnStart.hide();
     btnStart.mouseClicked(startToggle);
 
     btnMatch = createButton("MATCH");
-    btnMatch.position(140, height+350);
+    btnMatch.position(80, height+350);
+    btnMatch.size(125,25)
+    btnMatch.style('font-size','18px')
+    btnMatch.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnMatch.style('border-radius','10px');
     btnMatch.mouseClicked(pressMatch);
     btnMatch.hide();
 
     btnNoMatch = createButton("NO MATCH");
     btnNoMatch.position(220, height+350);
+    btnNoMatch.size(125,25)
+    btnNoMatch.style('font-size','18px')
+    btnNoMatch.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnNoMatch.style('border-radius','10px');
     btnNoMatch.mouseClicked(pressNoMatch);
     btnNoMatch.hide();
 
     btnEnd = createButton("End");
-    btnEnd.position(175,height+325);
+    btnEnd.position(400/2 - btnEnd.width,height+325);
+    btnEnd.size(125,25)
+    btnEnd.style('font-size','18px')
+    btnEnd.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnEnd.style('border-radius','10px');
     btnEnd.mouseClicked(startOver);
     btnEnd.hide();
 
-    color = textTable.getString(currentIndex,"Color");
-    caption = textTable.getString(currentIndex,"Caption");
 
-        textAlign(CENTER);
-        textSize(16);
-        textWrap(WORD);
-        textStyle(NORMAL);
-        fill(255,0,0);
-        text(`${currentIndex}`,25,25);
+    textAlign(CENTER);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(255,0,0);
+    text(`${currentIndex}`,25,25);
 
     imageMode(CENTER);
 }
@@ -109,7 +122,7 @@ function draw() {
     push();
     translate(offset, offsetY); 
     // changes, the x,y
-    fill(180);      
+    fill(255);      
     rect(offset+400,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
     pop();
 
@@ -117,7 +130,7 @@ function draw() {
     push();
     translate(offset, offsetY); 
     // changes, the x,y
-    fill(180);
+    fill(255);
     rect(offset+790,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
     pop();
 
@@ -126,25 +139,24 @@ function draw() {
  
     
     if(showText0){
-        textAlign(LEFT);
+        textAlign(CENTER,TOP);
         textSize(16);
         textWrap(WORD);
         textStyle(NORMAL);
         fill(0);
-       
+        text("In this app, you will have an opportunity to see if you have Color Vision Deficiency also known as color blindness. You will also see how people with various types of color vision deficiency see color. ", x,y,370);
+
         // 2. Show directions text
         let sent1 = "When you're ready click the ";
         let styledWord = "START ";
         let sent2 = "button.";
-        let w1 = textWidth(sent1);
+        let w1 = textWidth(sent1)+10;
 
-        text("In this app, you will have an opportunity to see if you have Color Vision Deficiency also known as color blindness. You will also see how people with various types of color vision deficiency see color. ", x,y,370);
+        textAlign(LEFT);
+        text(sent1, x+10, y+120);
 
-        text(sent1, x, y+120);
-
-        fill(0);
         textStyle(BOLD);
-        text(styledWord, x + w1,y+108,370);
+        text(styledWord, x + w1,y+120,370);
 
         let w2 = textWidth(styledWord);
         fill(0);
@@ -158,8 +170,8 @@ function draw() {
         textWrap(WORD);
         textStyle(NORMAL);
         fill(0);
-        text("For each test, we'll show you a new image that you can compare to the image in the middle box. The first comparison will be for the red-green part of the color spectrum.",x,y,370);
-        text("Press the SPACE BAR to see the first comparison.", x, y + 120, 370);
+        text("For each test, we'll show you a new image that you can compare to the image in the middle box. The first comparison will be for the red-green part of the color spectrum.",x,y+50,370);
+        text("Press the SPACE BAR to see the first comparison.", x, y + 150, 370);
 
         textAlign(CENTER);
         textWrap(WORD);
@@ -174,7 +186,7 @@ function draw() {
         textWrap(WORD);
         textStyle(NORMAL);
         fill(0);
-        text("Look closely at the two images and compare them. If you think they are the same, click MATCH otherwise click NO MATCH.", x, y +120, 370);
+        text("Look closely at the two images and compare them. If you think they are the same, click MATCH otherwise click NO MATCH.", x, y +90, 370);
 
         
     }
@@ -191,7 +203,7 @@ function draw() {
         textWrap(WORD);
         textStyle(NORMAL);
         fill(255,0,0);
-        text(`${currentIndex}`,25,25);
+        text(`No. ${currentIndex} of ${images.length}`,100,25);
     } 
 
 
@@ -201,25 +213,28 @@ function draw() {
     textWrap(WORD);
     textStyle(NORMAL);
     fill(0);
-    text(`You may have a ${color} color vision deficiency known as ${caption}. It is nothing to worry about, but your eye doctor can tell you more about it.`, x,y +55,370);
-    text('You can press END to reset to the beginning, or press the SPACE BAR to see other comparisons.',x, y + 120, 370);
+    text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, x,y +55,370);
+    text('You can press END to reset to the beginning, or press the SPACE BAR to see other comparisons.',x, y + 160, 370);
     
     textAlign(CENTER); 
-    textSize(16);  
+    textSize(20);  
     fill(0);
-    text(`${caption}`, offset+ 780 + 380/2 , offsetY + 380-50 );
+    text(`${textTable.getString(currentIndex,"Caption")}`, offset+ 780 + 380/2 , offsetY + 380-50 );
     }
 
     if(showNoMatchText){
-        textAlign(LEFT);
+        textAlign(CENTER);
         textSize(16);
         textWrap(WORD);
         textStyle(NORMAL);
         fill(0);
-        text(`This was a test for ${caption} a form of ${color} color vision deficiency. You don't seem to have it.`,x,y +55,370);
-        text("Ready for the next comparison? Press the SPACE BAR to move on.", x, y + 120, 370);
-        textAlign(CENTER);   
-        text(`${caption}`, offset+ 780 + 380/2 , offsetY + 380-50 );
+        text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,x,y +55,370);
+        text("Ready for the next comparison?", x, y + 150, 370);
+        text("Press the SPACE BAR to move on.", x, y + 175, 370);
+
+        textAlign(CENTER); 
+          textSize(20);
+        text(`${textTable.getString(currentIndex,"Caption")}`, offset+ 780 + 380/2 , offsetY + 380-50 );
     }
 }
 
@@ -240,15 +255,20 @@ showText1 = true;
 window.focus();
 }
 
-// ---------->>>>> START HERE TO FIGURE OUT HOW TO POST NEW TEXT, START WORKING ON THE CSV FILE IDEA, WILL BE THE SMOOTHEST IN THE LONGRUN <<<<<<<<---------
+
 // 4. KeyPressed == "space" - this will begin  to iterate through arrays, swapping comparison images and text from csv file.
 function keyPressed() {
   if (key === ' '){
     // work through images array and imageLabel array. use currentIndex as counter to keep track of which image is active.
+    if(currentIndex <= images.length)
     currentIndex++;
     if(currentIndex >= images.length){
         currentIndex = 0;
-    }
+        startOver();
+    } else {
+    color = textTable.getString(currentIndex,"Color");
+    caption = textTable.getString(currentIndex,"Caption");
+
     compareVisible = true;
     btnMatch.show();
     btnNoMatch.show();
@@ -256,6 +276,8 @@ function keyPressed() {
     showText2 = true;
     showMatchText = false;
     showNoMatchText = false;
+    btnEnd.hide();
+    }
   }
 
   
@@ -284,6 +306,10 @@ function pressMatch() {
     baseVisible = false;
     compareVisible = false;
     showMatchText = false;
+    showNoMatchText = false;
+
+    color = textTable.getString(currentIndex,"Color");
+    caption = textTable.getString(currentIndex,"Caption");
 
     btnEnd.hide();
     btnCYCV.show();
