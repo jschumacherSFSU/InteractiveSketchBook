@@ -199,11 +199,11 @@ function draw() {
 
         image(img, offset + 780 + 380/2, offsetY + 380/2,img.width/1.5, img.height/1.5);
         textAlign(CENTER);
-        textSize(16);
+        textSize(18);
         textWrap(WORD);
-        textStyle(NORMAL);
-        fill(255,0,0);
-        text(`No. ${currentIndex} of ${images.length}`,100,25);
+        textStyle(BOLD);
+        fill(0);
+        text(`No. ${currentIndex} of ${images.length - 1}`,380/2,25);
     } 
 
 
