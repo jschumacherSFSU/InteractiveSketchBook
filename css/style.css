@@ -126,3 +126,12 @@ li {
 canvas{
     margin-top: 25px;
 }
+
+#canvasContainer{
+    text-align: center;
+}
+
+#canvasContainer canvas{
+    display: block;
+    margin: 0 auto;
+}
