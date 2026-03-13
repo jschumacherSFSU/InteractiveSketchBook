@@ -15,9 +15,6 @@ let showRight = false;
 let showLeft = false;
 let showLong = false;
 
-
-
-
 // text variables
 let showMatchText = false;
 let showNoMatchText = false;
@@ -36,7 +33,7 @@ let btnNoMatch;
 let btnEnd;
 
 function preload() {
-
+  // preload image array
    images[0] = loadImage("../MicroIdea_3/img/0baseline.png");
    images[1] = loadImage("../MicroIdea_3/img/1protonopia.png");
    images[2] = loadImage("../MicroIdea_3/img/2deuteranopia.png");
@@ -46,27 +43,29 @@ function preload() {
    images[6] = loadImage("../MicroIdea_3/img/6tritanomaly.png");
    images[7] = loadImage("../MicroIdea_3/img/7achromatopsia.png");
    images[8] = loadImage("../MicroIdea_3/img/8achromatomaly.png");
-
+  // preload text array
    textTable = loadTable('../MicroIdea_3/data/microIdea3Labels.csv', 'csv', 'header');
 }
 
 
 // 1. click "Let's Check your Color Vision" button
 function setup() {
+    // use DOM to control div with script 
     const cnv = createCanvas(790, 550); 
     cnv.parent('canvasContainer') ;
-
+  //  set scroll to raise canvas into view
     let container = document.getElementById('canvasContainer');
     container.scrollTop = container.scrollIntoView;
+
     background(0);
+
+    // set button properties
     btnCYCV = createButton("Let's Begin >>");
     btnCYCV.position (windowWidth/2 - btnCYCV.width - 30 ,windowHeight/2 + 400)
-
     btnCYCV.size(200,50);
     btnCYCV.style('font-size','24px');
     btnCYCV.style('color', 'black');
     btnCYCV.style('background-color', '0');
-    // btnCYCV.style('box-shadow', '10px 10px 10px #9a9a9a')
     btnCYCV.style('border-radius','10px')
     btnCYCV.mouseClicked(checkVision);
     
@@ -112,21 +111,18 @@ function setup() {
 
 
 function draw() {
-    // first rectangle background is white with black "border" from background in setup
-
-    let x = 20;
-    let y = 400;
 
   if (showTitle){
 
     textAlign(CENTER, CENTER);
     textSize(60);
-    let phrase = "Color Vision Test";
+    let phrase = "Color Vision Quiz";
     let w = textWidth(phrase);
     let startX = width /2 - w/2;
     let endX = width / 2 + w/2;
     let gradient = drawingContext.createLinearGradient(startX, 0, endX, 0);
 
+    // set color gradient stops
     gradient.addColorStop(0, 'red'); // Start color (red)
     gradient.addColorStop(0.143, 'yellow'); // Middle color (green)
     gradient.addColorStop(0.286, 'pink'); // End color (blue)
@@ -135,7 +131,6 @@ function draw() {
     gradient.addColorStop(0.715, 'orange'); // End color (blue)
     gradient.addColorStop(0.858, '#0000ff'); // End color (blue)
 
-
     fill(255)
     drawingContext.fillStyle = gradient;   
     text(phrase, width/2 ,height/2 );
@@ -143,8 +138,6 @@ function draw() {
   }
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
     // 1
-
-  
   if(showLong){
     fill(255);
     rect(10,10,770,140);
@@ -163,16 +156,10 @@ function draw() {
   if (showRight){
     push();
     translate(offset, offsetY); 
-    // changes, the x,y
     fill(255);
     rect(offset+400,offsetY+160, 380, 380); 
-    // rect(offset+400,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
     pop();
-  }
-
-    // x = constrain(x, 20, 50);
-    // y = constrain(y, 60, 0);
- 
+  } 
     
   if(showText0){
     textAlign(CENTER,TOP);
@@ -184,7 +171,7 @@ function draw() {
 
     // 2. Show directions text
 
-      let rectX = 10;
+    let rectX = 10;
     let rectY = 10;
     let rectW = 770;
     let rectH = 140;
@@ -225,7 +212,7 @@ function draw() {
     textWrap(WORD);
     textStyle(NORMAL);
     fill(0);
-    text("For each test, we'll show you a new image that you can compare to the image in the middle box. The first comparison will be for the red-green part of the color spectrum.",offset,offsetY+40,770);
+    text("For each test, we'll show you a new image that you can compare to the image in the left box. The first comparison will be for the red-green part of the color spectrum.",offset,offsetY+40,770);
     text("Press the SPACE BAR to see the first comparison.", offset,offsetY+90,770);
 
     textAlign(CENTER);
@@ -250,7 +237,6 @@ function draw() {
   }
   if (compareVisible){
     let img = images[currentIndex];
-
     image(img, offset + width/2 + 380/2, offsetY + 550/2 +50,img.width/1.5, img.height/1.5);
     textAlign(CENTER);
     textSize(18);
@@ -260,7 +246,7 @@ function draw() {
     text(`No. ${currentIndex} of ${images.length - 1}`,770/2 +200,height/2 - 100);
   } 
 
-    if(showMatchText && currentIndex >= images.length-1){
+  if(showMatchText && currentIndex >= images.length-1){
     textAlign(CENTER);
     textSize(16);
     textWrap(WORD);
@@ -329,10 +315,7 @@ function checkVision() {
    btnCYCV.hide();
    btnStart.show();
    loop();
-
 }
-
-
 // 3. Click "Start" > base image (baseline.png) is shown along with text instructions: This image shows the primary range of colors. the first check will be for the red-green part of the color spectrum. Press the space bar to see the first set of colors.
 function startToggle(){
 btnStart.hide();
@@ -341,7 +324,6 @@ showText0 = false;
 showText1 = true;
 window.focus();
 }
-
 
 // 4. KeyPressed == "space" - this will begin  to iterate through arrays, swapping comparison images and text from csv file.
 function keyPressed() {
@@ -366,13 +348,10 @@ function keyPressed() {
     btnEnd.hide();
     }
   }
-
-  
   return false;
 }
 
 function pressMatch() {
-
     showMatchText = true;
     showText2 = false;
     btnMatch.hide();
@@ -380,13 +359,11 @@ function pressMatch() {
     btnEnd.show();
   }
 
-  function pressNoMatch(){
-    
+  function pressNoMatch(){    
     btnMatch.hide();
     btnNoMatch.hide();
     showNoMatchText = true;
     showText2 = false;
-
   }
 
   function startOver(){
@@ -395,7 +372,6 @@ function pressMatch() {
     showLeft = false;
     showLong = false;
     showTitle = true;
-
     baseVisible = false;
     compareVisible = false;
     showMatchText = false;
@@ -403,7 +379,6 @@ function pressMatch() {
     showText0 = false;
     showText1 = false;
     showText2 = false; 
-
 
     currentIndex = 0;
     color = textTable.getString(currentIndex,"Color");
@@ -414,14 +389,12 @@ function pressMatch() {
     btnNoMatch.hide();  
     btnCYCV.show();
 
- background(0);
+    background(0);
   }
 
   function scrollToBottom() {
-  // Use pure JavaScript to scroll the window
   window.scrollTo({
-    top: document.body.scrollHeight, // The total height of the body content
-    behavior: 'smooth'               // Optional: adds a smooth scrolling animation
+    top: document.body.scrollHeight,behavior: 'smooth' 
   });
 }
     
