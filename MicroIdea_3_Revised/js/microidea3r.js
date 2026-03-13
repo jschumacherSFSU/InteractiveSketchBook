@@ -11,13 +11,19 @@ let currentIndex = 0;
 let textTable;
 let baseVisible = false;
 let compareVisible = false;
-let show
+let showRight = false;
+let showLeft = false;
+let showLong = false;
+
+
+
 
 // text variables
 let showMatchText = false;
 let showNoMatchText = false;
 let offset=0;
 let offsetY=0;
+let showTitle = true;
 let showText0 = false;
 let showText1 = false;
 let showText2 = false;
@@ -47,31 +53,34 @@ function preload() {
 
 // 1. click "Let's Check your Color Vision" button
 function setup() {
-    const cnv = createCanvas(1180, 400); 
+    const cnv = createCanvas(790, 550); 
     cnv.parent('canvasContainer') ;
+
+    let container = document.getElementById('canvasContainer');
+    container.scrollTop = container.scrollIntoView;
     background(0);
-    btnCYCV = createButton("Let's Check Your Color Vision");
-    btnCYCV.position (width/2,height/2)
-    // btnCYCV.position(400 + (380/2)-btnCYCV.width/2,600);
-    btnCYCV.size(250,100);
-    btnCYCV.style('font-size','28px');
-    btnCYCV.style('color', '#333333');
-    btnCYCV.style('background-color', '#e76ef59a');
-    btnCYCV.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnCYCV = createButton("Let's Begin >>");
+    btnCYCV.position (windowWidth/2 - btnCYCV.width - 30 ,windowHeight/2 + 400)
+
+    btnCYCV.size(200,50);
+    btnCYCV.style('font-size','24px');
+    btnCYCV.style('color', 'black');
+    btnCYCV.style('background-color', '0');
+    // btnCYCV.style('box-shadow', '10px 10px 10px #9a9a9a')
     btnCYCV.style('border-radius','10px')
     btnCYCV.mouseClicked(checkVision);
     
     btnStart = createButton("START");
     btnStart.size(125,25)
     btnStart.style('font-size','18px')
-    btnStart.position(380/2 - btnStart.width/2,height+325);
+    btnStart.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 55);
     btnStart.style('box-shadow', '10px 10px 10px #9a9a9a')
     btnStart.style('border-radius','10px');
     btnStart.hide();
     btnStart.mouseClicked(startToggle);
 
     btnMatch = createButton("MATCH");
-    btnMatch.position(80, height+350);
+    btnMatch.position(windowWidth/2 - btnStart.width/2 -80,windowHeight/2 + 60);
     btnMatch.size(125,25)
     btnMatch.style('font-size','18px')
     btnMatch.style('box-shadow', '10px 10px 10px #9a9a9a')
@@ -80,7 +89,7 @@ function setup() {
     btnMatch.hide();
 
     btnNoMatch = createButton("NO MATCH");
-    btnNoMatch.position(220, height+350);
+    btnNoMatch.position(windowWidth/2 - btnStart.width/2+70 ,windowHeight/2 + 60);
     btnNoMatch.size(125,25)
     btnNoMatch.style('font-size','18px')
     btnNoMatch.style('box-shadow', '10px 10px 10px #9a9a9a')
@@ -89,162 +98,238 @@ function setup() {
     btnNoMatch.hide();
 
     btnEnd = createButton("End");
-    btnEnd.position(400/2 - btnEnd.width,height+325);
+    btnEnd.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 50);
     btnEnd.size(125,25)
     btnEnd.style('font-size','18px')
     btnEnd.style('box-shadow', '10px 10px 10px #9a9a9a')
     btnEnd.style('border-radius','10px');
     btnEnd.mouseClicked(startOver);
     btnEnd.hide();
-
-
-    textAlign(CENTER);
-    textSize(16);
-    textWrap(WORD);
-    textStyle(NORMAL);
-    fill(255,0,0);
-    text(`${currentIndex}`,25,25);
-
     imageMode(CENTER);
+
+    scrollToBottom();
 }
+
 
 function draw() {
     // first rectangle background is white with black "border" from background in setup
 
     let x = 20;
-    let y = 20;
-    
+    let y = 400;
+
+  if (showTitle){
+
+    textAlign(CENTER, CENTER);
+    textSize(60);
+    let phrase = "Color Vision Test";
+    let w = textWidth(phrase);
+    let startX = width /2 - w/2;
+    let endX = width / 2 + w/2;
+    let gradient = drawingContext.createLinearGradient(startX, 0, endX, 0);
+
+    gradient.addColorStop(0, 'red'); // Start color (red)
+    gradient.addColorStop(0.143, 'yellow'); // Middle color (green)
+    gradient.addColorStop(0.286, 'pink'); // End color (blue)
+    gradient.addColorStop(0.429, 'green'); // End color (blue)
+    gradient.addColorStop(0.572, 'purple'); // End color (blue)
+    gradient.addColorStop(0.715, 'orange'); // End color (blue)
+    gradient.addColorStop(0.858, '#0000ff'); // End color (blue)
+
+
+    fill(255)
+    drawingContext.fillStyle = gradient;   
+    text(phrase, width/2 ,height/2 );
+    noLoop();
+  }
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
     // 1
 
+  
+  if(showLong){
     fill(255);
-    rect(10,10,380,380);
+    rect(10,10,770,140);
+  }
 
     // 2
+  if(showLeft){
     push();
     translate(offset, offsetY); 
-    // changes, the x,y
-    fill(255);      
-    rect(offset+400,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
+    fill(255);  
+    rect(offset+10,offsetY+160, 380, 380);   
     pop();
+  }
 
     // 3
+  if (showRight){
     push();
     translate(offset, offsetY); 
     // changes, the x,y
     fill(255);
-    rect(offset+790,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
+    rect(offset+400,offsetY+160, 380, 380); 
+    // rect(offset+400,offsetY+10, 380, 380);      /*can apply offset to other parameters*/
     pop();
+  }
 
-    x = constrain(x, 20, 50);
-    y = constrain(y, 60, 0);
+    // x = constrain(x, 20, 50);
+    // y = constrain(y, 60, 0);
  
     
-    if(showText0){
-        textAlign(CENTER,TOP);
-        textSize(16);
-        textWrap(WORD);
-        textStyle(NORMAL);
-        fill(0);
-        text("In this app, you will have an opportunity to see if you have Color Vision Deficiency also known as color blindness. You will also see how people with various types of color vision deficiency see color. ", x,y,370);
+  if(showText0){
+    textAlign(CENTER,TOP);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(0);
+    text("In this app, you will have an opportunity to see if you have Color Vision Deficiency also known as color blindness. You will also see how people with various types of color vision deficiency see color. ", offset,offsetY+20,770);
 
-        // 2. Show directions text
-        let sent1 = "When you're ready click the ";
-        let styledWord = "START ";
-        let sent2 = "button.";
-        let w1 = textWidth(sent1)+10;
+    // 2. Show directions text
 
-        textAlign(LEFT);
-        text(sent1, x+10, y+120);
+      let rectX = 10;
+    let rectY = 10;
+    let rectW = 770;
+    let rectH = 140;
 
-        textStyle(BOLD);
-        text(styledWord, x + w1,y+120,370);
+    stroke(0);
+    noFill();
+    rect(rectX, rectY, rectW, rectH);
+    let cx = rectX + rectW/2;
+    let cy = rectY + rectH/2;
 
-        let w2 = textWidth(styledWord);
-        fill(0);
-        textStyle(NORMAL);
-        text(sent2, x + w1 + w2, y+120); 
-    }
+    let part1 = "When you're ready click the ";
+    let part2 = "START";
+    let part3 = " button.";
 
-    if(showText1){
-        textAlign(LEFT);
-        textSize(16);
-        textWrap(WORD);
-        textStyle(NORMAL);
-        fill(0);
-        text("For each test, we'll show you a new image that you can compare to the image in the middle box. The first comparison will be for the red-green part of the color spectrum.",x,y+50,370);
-        text("Press the SPACE BAR to see the first comparison.", x, y + 150, 370);
+    fill(0);
+    textSize(16);
+    textAlign(CENTER,CENTER);
+    let totalWidth = textWidth(part1 + part2 + part3);
+    let startX = cx - totalWidth/2;
 
-        textAlign(CENTER);
-        textWrap(WORD);
-        text("This image shows color as people without any deficiency would see it.", 410, offsetY + 380-50, 360 );
-        fill(255,0,0);
-        textSize(24);
+    textStyle(NORMAL);
+    let w1 = textWidth(part1);
+    text(part1, startX +w1/2, cy);
 
-    }
-    if(showText2){
-        textAlign(CENTER);
-        textSize(16);
-        textWrap(WORD);
-        textStyle(NORMAL);
-        fill(0);
-        text("Look closely at the two images and compare them. If you think they are the same, click MATCH otherwise click NO MATCH.", x, y +90, 370);
+    textStyle(BOLD);
+    let w2 = textWidth(part2);
+    text(part2, startX + w1 + w2/2, cy);
 
-        
-    }
-    if (baseVisible){
-        image(images[0], offset + 400 + 380/2 , offsetY + 380/2, images[0].width/1.5,images[0].height/1.5);
+    // Draw Part 3 (Normal)
+    textStyle(NORMAL);
+    let w3 = textWidth(part3);
+    text(part3, startX + w1 + w2 + w3/2, cy);
+  }
 
-    }
-    if (compareVisible){
-        let img = images[currentIndex];
-
-        image(img, offset + 780 + 380/2, offsetY + 380/2,img.width/1.5, img.height/1.5);
-        textAlign(CENTER);
-        textSize(18);
-        textWrap(WORD);
-        textStyle(BOLD);
-        fill(0);
-        text(`No. ${currentIndex} of ${images.length - 1}`,380/2,25);
-    } 
-
-
-    if(showMatchText){
+  if(showText1){
     textAlign(CENTER);
     textSize(16);
     textWrap(WORD);
     textStyle(NORMAL);
     fill(0);
-    text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, x,y +55,370);
-    text('You can press END to reset to the beginning, or press the SPACE BAR to see other comparisons.',x, y + 160, 370);
+    text("For each test, we'll show you a new image that you can compare to the image in the middle box. The first comparison will be for the red-green part of the color spectrum.",offset,offsetY+40,770);
+    text("Press the SPACE BAR to see the first comparison.", offset,offsetY+90,770);
+
+    textAlign(CENTER);
+    textWrap(WORD);
+    fill(0,0,0);
+    textSize(24);
+    text("This image shows color as people without any deficiency would see it.", offset + width/2 -380, offsetY + 550/2 +200, 360 );
+  }
+  if(showText2){
+    textAlign(CENTER);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(0);
+    text("Look closely at the two images and compare them. ", offset,offsetY+40,770); 
+    text("If you think they are the same, click MATCH otherwise click NO MATCH.", offset,offsetY+60,770)    
+  }
+
+  if (baseVisible){
+    image(images[0], offset + width/2 -200 , offsetY + 550/2 +50, images[0].width/1.5,images[0].height/1.5);
+
+  }
+  if (compareVisible){
+    let img = images[currentIndex];
+
+    image(img, offset + width/2 + 380/2, offsetY + 550/2 +50,img.width/1.5, img.height/1.5);
+    textAlign(CENTER);
+    textSize(18);
+    textWrap(WORD);
+    textStyle(BOLD);
+    fill(0);
+    text(`No. ${currentIndex} of ${images.length - 1}`,770/2 +200,height/2 - 100);
+  } 
+
+    if(showMatchText && currentIndex >= images.length-1){
+    textAlign(CENTER);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(0);
+    text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
+    text('That was the last comparison. We hope you found this useful. You can press END to close the quiz.',offset,offsetY+80,750);
     
     textAlign(CENTER); 
-    textSize(20);  
+    textSize(24);  
     fill(0);
-    text(`${textTable.getString(currentIndex,"Caption")}`, offset+ 780 + 380/2 , offsetY + 380-50 );
-    }
+    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
+  } else if(showMatchText){
+    textAlign(CENTER);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(0);
+    text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
+    text('You can press END to reset the quiz, or press the SPACE BAR to see other comparisons.',offset,offsetY+80,750);
+    
+    textAlign(CENTER); 
+    textSize(24);  
+    fill(0);
+    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
+  }
 
-    if(showNoMatchText){
-        textAlign(CENTER);
-        textSize(16);
-        textWrap(WORD);
-        textStyle(NORMAL);
-        fill(0);
-        text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,x,y +55,370);
-        text("Ready for the next comparison?", x, y + 150, 370);
-        text("Press the SPACE BAR to move on.", x, y + 175, 370);
+  if (showNoMatchText && currentIndex >= images.length-1){
+    textAlign(CENTER);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(0);
+    text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
+    text("That was that last comparison. We hope you found this useful.", offset,offsetY+80,770);
+    text("Press the SPACE BAR to end the quiz.", offset,offsetY+120,770);
 
-        textAlign(CENTER); 
-          textSize(20);
-        text(`${textTable.getString(currentIndex,"Caption")}`, offset+ 780 + 380/2 , offsetY + 380-50 );
-    }
+    textAlign(CENTER); 
+    textSize(24);
+    fill(0);
+    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+  } else  if(showNoMatchText ){
+    textAlign(CENTER);
+    textSize(16);
+    textWrap(WORD);
+    textStyle(NORMAL);
+    fill(0);
+    text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
+    text("Ready for the next comparison?", offset,offsetY+80,770);
+    text("Press the SPACE BAR to continue.", offset,offsetY+120,770);
+
+    textAlign(CENTER); 
+    textSize(24);
+    fill(0);
+    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+  }
 }
 
 
 function checkVision() {
    showText0 = true;
+   showRight = true;
+   showLeft = true;
+   showLong = true;
+   showTitle = false;
    btnCYCV.hide();
    btnStart.show();
+   loop();
+
 }
 
 
@@ -305,18 +390,40 @@ function pressMatch() {
   }
 
   function startOver(){
+    loop();
+    showRight = false;
+    showLeft = false;
+    showLong = false;
+    showTitle = true;
+
     baseVisible = false;
     compareVisible = false;
     showMatchText = false;
     showNoMatchText = false;
+    showText0 = false;
+    showText1 = false;
+    showText2 = false; 
 
+
+    currentIndex = 0;
     color = textTable.getString(currentIndex,"Color");
     caption = textTable.getString(currentIndex,"Caption");
 
     btnEnd.hide();
+    btnMatch.hide();
+    btnNoMatch.hide();  
     btnCYCV.show();
-    currentIndex = 0;
+
+ background(0);
   }
+
+  function scrollToBottom() {
+  // Use pure JavaScript to scroll the window
+  window.scrollTo({
+    top: document.body.scrollHeight, // The total height of the body content
+    behavior: 'smooth'               // Optional: adds a smooth scrolling animation
+  });
+}
     
 //  **************************************************************************   
     // these are placeholders for color blindness selections; need to build real text values in csv

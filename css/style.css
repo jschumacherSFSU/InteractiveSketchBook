@@ -129,9 +129,13 @@ canvas{
 
 #canvasContainer{
     text-align: center;
+    overflow-y: scroll;
+    overflow: auto;
+    height: 600;
 }
 
 #canvasContainer canvas{
     display: block;
     margin: 0 auto;
+    margin-bottom: 100px;
 }
