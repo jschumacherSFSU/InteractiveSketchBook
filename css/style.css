@@ -139,3 +139,7 @@ canvas{
     margin: 0 auto;
     margin-bottom: 100px;
 }
+
+.align-right{
+    text-align: right;
+}

@@ -106,6 +106,8 @@ function setup() {
     btnEnd.hide();
     imageMode(CENTER);
 
+
+
     scrollToBottom();
 }
 
@@ -116,7 +118,7 @@ function draw() {
 
     textAlign(CENTER, CENTER);
     textSize(60);
-    let phrase = "Color Vision Quiz";
+    let phrase = "How's Your Color Vision?";
     let w = textWidth(phrase);
     let startX = width /2 - w/2;
     let endX = width / 2 + w/2;
@@ -131,10 +133,14 @@ function draw() {
     gradient.addColorStop(0.715, 'orange'); // End color (blue)
     gradient.addColorStop(0.858, '#0000ff'); // End color (blue)
 
-    fill(255)
+    fill(255);
     drawingContext.fillStyle = gradient;   
     text(phrase, width/2 ,height/2 );
     noLoop();
+  } else {
+    fill(0);
+    showTitle = false;
+
   }
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
     // 1
