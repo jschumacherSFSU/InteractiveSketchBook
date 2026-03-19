@@ -85,7 +85,7 @@ function setup() {
     container.scrollTop = container.scrollIntoView;
 
     background(0);
-
+  //  make adjustment to position using canvas 
     // set button properties
     btnCYCV = createButton("Let's Begin >>");
     btnCYCV.position (windowWidth/2 - btnCYCV.width - 30 ,windowHeight/2 + 400);
@@ -99,7 +99,7 @@ function setup() {
     btnStart = createButton("Start");
     btnStart.size(200,50);
     btnStart.style('font-size','24px');
-    btnStart.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 100);
+    btnStart.position(canvasPos.x + 385 - btnStart.width/2 ,canvasPos.y + 125);
     // btnStart.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnStart.style('border-radius','10px');
     btnStart.hide();
@@ -124,7 +124,7 @@ function setup() {
     btnNoMatch.hide();
 
     btnEnd = createButton("End");
-    btnEnd.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 50);
+    btnEnd.position(windowWidth/2 - btnStart.width/2 ,canvasPos.y+115);
     btnEnd.size(125,25);
     btnEnd.style('font-size','18px');
     btnEnd.style('box-shadow', '10px 10px 10px #9a9a9a');
@@ -152,33 +152,19 @@ function setup() {
 
 
     imageMode(CENTER);
+
+    // force scroll to bottom of window
     scrollToBottom();
-
+// run button creator
     buildMenuButtons();
-
-    
-    // for (let i = 0; i < textTable.getRowCount(); i++){
-    //  let arrData = {
-    //     title: textTable.getString(i,"Caption"),
-    //     img: images[i],
-    //     };
-    //     arrData.btn = createButton(arrData.title);
-    //     if (i <= 4){
-    //     arrData.btn.position(windowWidth/2- arrData.btn.width*2, windowHeight/2 + i  * 40 +10);}
-    //     else {arrData.btn.position(windowWidth/2 + arrData.btn.width *2, windowHeight - (i * 40) + 20);}
-    //     arrData.btn.hide();
-    //     arrData.btn.mouseClicked(() => {
-    //       runMenuItem(i);
-    //     });
-    //   arrObj.push(arrData);
-      
-    // }
     
 }
 
 
 function draw() {
-console.log('showTitle:', showTitle, 'showMenu:', showMenu);
+  console.log('showTitle:', showTitle, 'showMenu:', showMenu);
+  
+  // splash screen
   if (showTitle){
 
     textAlign(CENTER, CENTER);
@@ -209,7 +195,7 @@ console.log('showTitle:', showTitle, 'showMenu:', showMenu);
   }
 
 
-
+  // Menu screen
   // display a title "Vision Menu", 8 buttons (1 per condition), a horizontal line below the 8 buttons, and below the line a single button 
 if(showMenu){
  textAlign(CENTER, TOP);
@@ -227,6 +213,8 @@ if(showMenu){
 // load buttons
 
   // draw line
+  stroke(255);
+  line(50,canvasPos.y-10 , 740, canvasPos.y-10 );
 }
 
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
@@ -388,7 +376,7 @@ if(showMenu){
         textStyle(NORMAL);
         fill(0);
         text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
-        text("That was that last comparison. We hope you found this useful.", offset,offsetY+80,770);
+        text("That was the last comparison. We hope you found this useful.", offset,offsetY+80,770);
         text("Press NEXT to end the quiz.", offset,offsetY+120,770);
         textAlign(CENTER); 
         textSize(24);
