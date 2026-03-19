@@ -213,8 +213,8 @@ if(showMenu){
 // load buttons
 
   // draw line
-  stroke(255);
-  line(50,canvasPos.y-10 , 740, canvasPos.y-10 );
+  stroke('magenta');
+  line(50,canvasPos.y-10 , 740, canvasPos.y-10);
 }
 
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
