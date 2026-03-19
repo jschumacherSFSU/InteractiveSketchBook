@@ -1,4 +1,3 @@
-
 //  03032026 - changed course and scrapped the first quiz option after talking to Josh. 
 // types of color vision deficiency - text see end of page.
 
@@ -6,32 +5,37 @@
 
 
 // 03172026 - didn't complete menu suggestion for the final iteration, so adding it in here.
-// while researching methods, was reminded of  array of objects - put menu buttons and their functions in the array along side the images so that the buttons are inherently connected to the image, so that when button is pushed, the currentIndex value is automatic. 
-// uses concept of levels to move through the index to the desired level and then triggers the function associates with that index.
-// build button generator to automatically build buttons
+// while researching methods, was reminded of  ARRAY OF OBJECTS [arrObj] - put menu buttons and their functions in the array along side the images so that the buttons are inherently connected to the image, so that when button is pushed, the currentIndex value is automatic. 
+// uses concept of levels to move through the index to the desired level and then triggers the function associated with that index.
+// build BUTTON GENERATOR to automatically build buttons
+// New opening sequence
+// >>>>>COMPLETED - NEW VAR in setup() = fromMenu = false;
+// From Front screen, btnCYCV button hides front screen and button and shows 8 menu buttons, instructions, and SEPARATE BUTTON to start the quiz from the beginning.
+// If a menu button is selected then run from the arrObj. 
+// sequence:
+// Hide menu buttons + Start bubtton
+// Set fromMenu = true + Show 3 boxes + baseline and text + condition image based on button selected + Instructions + Match/No Match button 
+// When M/NoM selected, ADD if !fromMenu then normal code, else show condition text, image and caption and new instruction for single menu item explaining condition and show END and MENU buttons, now they can hit end or menu but don't let use go forward > force them back to Menu screen
+// If end, hide boxes, hide baseline, text, condition image, instructinos, end/menu buttons; show front screen, title and lets begin button;
+// If menu, hide boxes, hide baseline, text, condition image, instructinos, end/menu buttons; show front screen, menu buttons, any necessary text and the quiz button.
 
-
-
-
-
-
-
-
-
-
-
-
+// Incorporate feedback to replace spacebar with Next button
+// Test on laptop screen to check remarks about position of start and match/no match buttons covering other text. Perhaps increase height of long box so buttons can sit at bottom of box
+// Resize image for condition #4 
 
 // Global variables
 let images = [];
+let arrObj = [];
 let currentIndex = 0;
-
+let canvasPos;
 let textTable;
 let baseVisible = false;
 let compareVisible = false;
 let showRight = false;
 let showLeft = false;
 let showLong = false;
+let showMenu = false;
+let fromMenu = false;
 
 // text variables
 let showMatchText = false;
@@ -49,20 +53,24 @@ let btnStart;
 let btnMatch;
 let btnNoMatch;
 let btnEnd;
+let btnNext;
+let btnExam;
 
 function preload() {
   // preload image array
-   images[0] = loadImage("../MicroIdea_3/img/0baseline.png");
-   images[1] = loadImage("../MicroIdea_3/img/1protonopia.png");
-   images[2] = loadImage("../MicroIdea_3/img/2deuteranopia.png");
-   images[3] = loadImage("../MicroIdea_3/img/3protanomaly.png");
-   images[4] = loadImage("../MicroIdea_3/img/4deuteranomaly.png");
-   images[5] = loadImage("../MicroIdea_3/img/5tritanopia.png");
-   images[6] = loadImage("../MicroIdea_3/img/6tritanomaly.png");
-   images[7] = loadImage("../MicroIdea_3/img/7achromatopsia.png");
-   images[8] = loadImage("../MicroIdea_3/img/8achromatomaly.png");
+   images[0] = loadImage("../MicroIdea_3_v3/img/0baseline.png");
+   images[1] = loadImage("../MicroIdea_3_v3/img/1protonopia.png");
+   images[2] = loadImage("../MicroIdea_3_v3/img/2deuteranopia.png");
+   images[3] = loadImage("../MicroIdea_3_v3/img/3protanomaly.png");
+   images[4] = loadImage("../MicroIdea_3_v3/img/4deuteranomaly.png");
+   images[5] = loadImage("../MicroIdea_3_v3/img/5tritanopia.png");
+   images[6] = loadImage("../MicroIdea_3_v3/img/6tritanomaly.png");
+   images[7] = loadImage("../MicroIdea_3_v3/img/7achromatopsia.png");
+   images[8] = loadImage("../MicroIdea_3_v3/img/8achromatomaly.png");
+
+
   // preload text array
-   textTable = loadTable('../MicroIdea_3/data/microIdea3Labelsv3.csv', 'csv', 'header');
+   textTable = loadTable('../MicroIdea_3_v3/data/microIdea3Labelsv3.csv', 'csv', 'header');
 }
 
 
@@ -71,6 +79,7 @@ function setup() {
     // use DOM to control div with script 
     const cnv = createCanvas(790, 550); 
     cnv.parent('canvasContainer') ;
+    canvasPos = cnv.position();
   //  set scroll to raise canvas into view
     let container = document.getElementById('canvasContainer');
     container.scrollTop = container.scrollIntoView;
@@ -79,59 +88,97 @@ function setup() {
 
     // set button properties
     btnCYCV = createButton("Let's Begin >>");
-    btnCYCV.position (windowWidth/2 - btnCYCV.width - 30 ,windowHeight/2 + 400)
+    btnCYCV.position (windowWidth/2 - btnCYCV.width - 30 ,windowHeight/2 + 400);
     btnCYCV.size(200,50);
     btnCYCV.style('font-size','24px');
     btnCYCV.style('color', 'black');
     btnCYCV.style('background-color', '0');
-    btnCYCV.style('border-radius','10px')
-    btnCYCV.mouseClicked(checkVision);
+    btnCYCV.style('border-radius','10px');
+    btnCYCV.mouseClicked(getMenu);
     
-    btnStart = createButton("START");
-    btnStart.size(125,25)
-    btnStart.style('font-size','18px')
-    btnStart.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 55);
-    btnStart.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnStart = createButton("Start");
+    btnStart.size(200,50);
+    btnStart.style('font-size','24px');
+    btnStart.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 100);
+    // btnStart.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnStart.style('border-radius','10px');
     btnStart.hide();
     btnStart.mouseClicked(startToggle);
 
     btnMatch = createButton("MATCH");
     btnMatch.position(windowWidth/2 - btnStart.width/2 -80,windowHeight/2 + 60);
-    btnMatch.size(125,25)
-    btnMatch.style('font-size','18px')
-    btnMatch.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnMatch.size(125,25);
+    btnMatch.style('font-size','18px');
+    btnMatch.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnMatch.style('border-radius','10px');
     btnMatch.mouseClicked(pressMatch);
     btnMatch.hide();
 
     btnNoMatch = createButton("NO MATCH");
     btnNoMatch.position(windowWidth/2 - btnStart.width/2+70 ,windowHeight/2 + 60);
-    btnNoMatch.size(125,25)
-    btnNoMatch.style('font-size','18px')
-    btnNoMatch.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnNoMatch.size(125,25);
+    btnNoMatch.style('font-size','18px');
+    btnNoMatch.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnNoMatch.style('border-radius','10px');
     btnNoMatch.mouseClicked(pressNoMatch);
     btnNoMatch.hide();
 
     btnEnd = createButton("End");
     btnEnd.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 50);
-    btnEnd.size(125,25)
-    btnEnd.style('font-size','18px')
-    btnEnd.style('box-shadow', '10px 10px 10px #9a9a9a')
+    btnEnd.size(125,25);
+    btnEnd.style('font-size','18px');
+    btnEnd.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnEnd.style('border-radius','10px');
     btnEnd.mouseClicked(startOver);
     btnEnd.hide();
+
+    btnNext = createButton("Next");
+    btnNext.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 100);
+    btnNext.size(125,25);
+    btnNext.style('font-size','18px');
+    // btnNext.style('box-shadow', '10px 10px 10px #9a9a9a');
+    btnNext.style('border-radius','10px');
+    btnNext.mouseClicked(goNext);
+    btnNext.hide();
+
+    btnExam = createButton("Begin Exam")
+    btnExam.position(windowWidth/2 - btnCYCV.width/2 - 30 ,windowHeight/2 + 400);
+    btnExam.size(200,50);
+    btnExam.style('font-size','24px');
+    // btnExam.style('box-shadow', '10px 10px 10px #9a9a9a');
+    btnExam.style('border-radius','10px');
+    btnExam.mouseClicked(checkVision);
+    btnExam.hide();
+
+
     imageMode(CENTER);
-
-
-
     scrollToBottom();
+
+    buildMenuButtons();
+
+    
+    // for (let i = 0; i < textTable.getRowCount(); i++){
+    //  let arrData = {
+    //     title: textTable.getString(i,"Caption"),
+    //     img: images[i],
+    //     };
+    //     arrData.btn = createButton(arrData.title);
+    //     if (i <= 4){
+    //     arrData.btn.position(windowWidth/2- arrData.btn.width*2, windowHeight/2 + i  * 40 +10);}
+    //     else {arrData.btn.position(windowWidth/2 + arrData.btn.width *2, windowHeight - (i * 40) + 20);}
+    //     arrData.btn.hide();
+    //     arrData.btn.mouseClicked(() => {
+    //       runMenuItem(i);
+    //     });
+    //   arrObj.push(arrData);
+      
+    // }
+    
 }
 
 
 function draw() {
-
+console.log('showTitle:', showTitle, 'showMenu:', showMenu);
   if (showTitle){
 
     textAlign(CENTER, CENTER);
@@ -155,11 +202,33 @@ function draw() {
     drawingContext.fillStyle = gradient;   
     text(phrase, width/2 ,height/2 );
     noLoop();
+    return;
   } else {
     fill(0);
-    showTitle = false;
-
+    rect(0,0,790,550);
   }
+
+
+
+  // display a title "Vision Menu", 8 buttons (1 per condition), a horizontal line below the 8 buttons, and below the line a single button 
+if(showMenu){
+ textAlign(CENTER, TOP);
+ textSize(40);
+ fill (255);
+ text("Vision Menu", width/2, 25);
+
+
+ textStyle(NORMAL);
+ textAlign(CENTER);
+ textWrap(WORD);
+ textSize(20);
+ fill(255);
+ text("You may look at an individual condition by selecting one of the eight buttons below, or you may run the entire exam from the beginning by selecting the Begin Exam button at the bottom of the screen.", width/2 - 350, 75 ,700);
+// load buttons
+
+  // draw line
+}
+
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
     // 1
   if(showLong){
@@ -237,7 +306,7 @@ function draw() {
     textStyle(NORMAL);
     fill(0);
     text("For each test, we'll show you a new image that you can compare to the image in the left box. The first comparison will be for the red-green part of the color spectrum.",offset,offsetY+40,770);
-    text("Press the SPACE BAR to see the first comparison.", offset,offsetY+90,770);
+    text("Press NEXT to see the first comparison.", offset,offsetY+90,770);
 
     textAlign(CENTER);
     textWrap(WORD);
@@ -271,74 +340,187 @@ function draw() {
   } 
 
   if(showMatchText && currentIndex >= images.length-1){
-    textAlign(CENTER);
-    textSize(16);
-    textWrap(WORD);
-    textStyle(NORMAL);
-    fill(0);
-    text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
-    text('That was the last comparison. We hope you found this useful. You can press END to close the quiz.',offset,offsetY+80,750);
-    
-    textAlign(CENTER); 
-    textSize(24);  
-    fill(0);
-    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
-  } else if(showMatchText){
-    textAlign(CENTER);
-    textSize(16);
-    textWrap(WORD);
-    textStyle(NORMAL);
-    fill(0);
-    text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
-    text('You can press END to reset the quiz, or press the SPACE BAR to see other comparisons.',offset,offsetY+80,750);
-    
-    textAlign(CENTER); 
-    textSize(24);  
-    fill(0);
-    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
-  }
+      textAlign(CENTER);
+      textSize(16);
+      textWrap(WORD);
+      textStyle(NORMAL);
+      fill(0);
+      text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
+      text('That was the last comparison. We hope you found this useful. You can press END to close the quiz.',offset,offsetY+80,750);
+      
+      textAlign(CENTER); 
+      textSize(24);  
+      fill(0);
+      text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
+    } else 
+      if(showMatchText && fromMenu){
+          console.log('fromMenu =', fromMenu);
+          textAlign(CENTER);
+          textSize(16);
+          textWrap(WORD);
+          textStyle(NORMAL);
+          fill(0);
+          text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
+          text('You can press END to reset the quiz.',offset,offsetY+80,750);
+    }else
+      if (showMatchText){
+          textAlign(CENTER);
+          textSize(16);
+          textWrap(WORD);
+          textStyle(NORMAL);
+          fill(0);
+          text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
+          text('You can press END to reset the quiz, or press NEXT to see other comparisons.',offset,offsetY+80,750);
+          
+          textAlign(CENTER); 
+          textSize(24);  
+          fill(0);
+          text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
+          }
+      
+
 
   if (showNoMatchText && currentIndex >= images.length-1){
-    textAlign(CENTER);
-    textSize(16);
-    textWrap(WORD);
-    textStyle(NORMAL);
-    fill(0);
-    text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
-    text("That was that last comparison. We hope you found this useful.", offset,offsetY+80,770);
-    text("Press the SPACE BAR to end the quiz.", offset,offsetY+120,770);
+      console.log('1fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText);
+        textAlign(CENTER);
+        textSize(16);
+        textWrap(WORD);
+        textStyle(NORMAL);
+        fill(0);
+        text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
+        text("That was that last comparison. We hope you found this useful.", offset,offsetY+80,770);
+        text("Press NEXT to end the quiz.", offset,offsetY+120,770);
+        textAlign(CENTER); 
+        textSize(24);
+        fill(0);
+        text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+      } else if(showNoMatchText && fromMenu){
+                console.log('2fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText)
+                textAlign(CENTER);
+                textSize(16);
+                textWrap(WORD);
+                textStyle(NORMAL);
+                fill(0);
+                text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
+                text("Press END to return to the Vision Menu.", offset,offsetY+80,770);
+            } else if(showNoMatchText ){
+                    console.log('3fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText)
+                    textAlign(CENTER);
+                    textSize(16);
+                    textWrap(WORD);
+                    textStyle(NORMAL);
+                    fill(0);
+                    text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
+                    text("Ready for the next comparison?", offset,offsetY+80,770);
+                    text("Press NEXT to continue.", offset,offsetY+120,770);
+                    textAlign(CENTER); 
+                    textSize(24);
+                    fill(0);
+                    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+            }
+          }         
 
-    textAlign(CENTER); 
-    textSize(24);
-    fill(0);
-    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
-  } else  if(showNoMatchText ){
-    textAlign(CENTER);
-    textSize(16);
-    textWrap(WORD);
-    textStyle(NORMAL);
-    fill(0);
-    text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
-    text("Ready for the next comparison?", offset,offsetY+80,770);
-    text("Press the SPACE BAR to continue.", offset,offsetY+120,770);
+function buildMenuButtons() {
+  const colLeftX  = canvasPos.x + width / 2 - 200;  
+  const colRightX = canvasPos.x + width / 2 + 40;   
 
-    textAlign(CENTER); 
-    textSize(24);
-    fill(0);
-    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+  const topY = canvasPos.y + 125;     // 125 px from top of canvas
+  const rowSpacing = 50;
+
+  for (let i = 1; i < textTable.getRowCount(); i++) {
+    let arrData = {
+      title: textTable.getString(i, "Caption"),
+      img: images[i],
+    };
+    arrData.btn = createButton(arrData.title);
+
+    // column and row indices
+    let col = (i <=4) ? 0 : 1;       // 0 = left, 1 = right
+    let row = (i <=4) ? i : i - 4;   // rows 0..3
+
+    let x = (col === 0) ? colLeftX : colRightX;
+    let y = topY + row * rowSpacing;
+
+    arrData.btn.position(x, y+5);
+    arrData.btn.size(150,40);
+    arrData.btn.style('font-size', '18px');
+    arrData.btn.style('border-radius','10px')
+    arrData.btn.hide();
+
+    arrData.btn.mouseClicked(() => {
+      runMenuItem(i);
+    });
+
+    arrObj.push(arrData);
   }
 }
 
 
+function getMenu(){
+ console.log('getMenu called')
+  showTitle = false;
+  console.log('after getMenu, showTitle = ', showTitle);
+  btnCYCV.hide();
+  showMenu = true;
+  for (let item of arrObj) {
+      item.btn.show();
+    }
+  btnExam.show();
+    loop();
+}
+
+// when menu btn is clicked
+function runMenuItem(ind) {
+  fromMenu = true;
+  showMenu = false;
+  currentIndex = ind;
+
+  // Hide menu buttons
+  for (let item of arrObj) {
+    item.btn.hide();
+  }
+
+  // Set up single-condition view
+  showTitle = false;
+  showLong = true;
+  showLeft = true;
+  showRight = true;
+  baseVisible = true;
+  compareVisible = true;
+
+  showText0 = false;
+  showText1 = false;
+  showText2 = true;   
+
+  showMatchText = false;
+  showNoMatchText = false;
+
+  btnMatch.show();
+  btnNoMatch.show();
+     
+  btnNext.hide();
+  btnExam.hide();     
+  loop();             
+}
+
 function checkVision() {
-   showText0 = true;
-   showRight = true;
-   showLeft = true;
-   showLong = true;
-   showTitle = false;
-   btnCYCV.hide();
-   btnStart.show();
-   loop();
+  fromMenu = false;
+  showMenu = false;
+
+  for (let item of arrObj) {
+    item.btn.hide();
+  }
+
+  btnExam.hide();
+  showText0 = true;
+  showRight = true;
+  showLeft = true;
+  showLong = true;
+  showTitle = false;
+   
+  btnCYCV.hide();
+  btnStart.show();
+  loop();
 }
 // 3. Click "Start" > base image (baseline.png) is shown along with text instructions: This image shows the primary range of colors. the first check will be for the red-green part of the color spectrum. Press the space bar to see the first set of colors.
 function startToggle(){
@@ -346,19 +528,25 @@ btnStart.hide();
 baseVisible = true;
 showText0 = false;
 showText1 = true;
+btnNext.show();
 window.focus();
 }
 
+
+
 // 4. KeyPressed == "space" - this will begin  to iterate through arrays, swapping comparison images and text from csv file.
-function keyPressed() {
-  if (key === ' '){
+  // if (key === ' '){
     // work through images array and imageLabel array. use currentIndex as counter to keep track of which image is active.
-    if(currentIndex <= images.length)
+// 3/17/26 - added btnNext - change to button per peer feedback - 
+function goNext() {
+   
     currentIndex++;
     if(currentIndex >= images.length){
         currentIndex = 0;
         startOver();
-    } else {
+        btnNext.hide();
+        return false;
+    } 
     color = textTable.getString(currentIndex,"Color");
     caption = textTable.getString(currentIndex,"Caption");
 
@@ -370,32 +558,76 @@ function keyPressed() {
     showMatchText = false;
     showNoMatchText = false;
     btnEnd.hide();
+    btnNext.hide();
+    return false;
     }
-  }
-  return false;
-}
-
+      
+   
 function pressMatch() {
+  if(fromMenu){
+    btnEnd.show();
+    btnMatch.hide();
+    btnNoMatch.hide();
+    showMatchText = true;
+        showText2 = false;
+  } else {
     showMatchText = true;
     showText2 = false;
     btnMatch.hide();
     btnNoMatch.hide();
     btnEnd.show();
+    btnNext.show();
   }
-
-  function pressNoMatch(){    
+}
+  
+function pressNoMatch(){ 
+  console.log('fromMenu=',fromMenu, 'showNoMatch=',showNoMatchText) 
+    if(fromMenu) {
+     btnEnd.show();
     btnMatch.hide();
     btnNoMatch.hide();
     showNoMatchText = true;
+        showText2 = false;
+    }else{
+    btnMatch.hide();
+    btnNoMatch.hide();
+    btnNext.show();
+    showNoMatchText = true;
     showText2 = false;
   }
+}
 
   function startOver(){
+    if (fromMenu) {
+    // return to menu
+
+    showRight = false;
+    showLeft = false;
+    showLong = false;
+    baseVisible = false;
+    compareVisible = false;
+    showMatchText = false;
+    showNoMatchText = false;
+    showText0 = false;
+    showText1 = false;
+    showText2 = false; 
+
+    currentIndex = 0;
+    color = textTable.getString(currentIndex,"Color");
+    caption = textTable.getString(currentIndex,"Caption");
+
+    showTitle = false;
+    showMenu = true;
+    for (let item of arrObj) item.btn.show();
+    btnExam.show();
+    btnEnd.hide();
+    loop();
+  } else {
+    // restart 
     loop();
     showRight = false;
     showLeft = false;
     showLong = false;
-    showTitle = true;
     baseVisible = false;
     compareVisible = false;
     showMatchText = false;
@@ -411,10 +643,15 @@ function pressMatch() {
     btnEnd.hide();
     btnMatch.hide();
     btnNoMatch.hide();  
+    btnNext.hide();
+    fromMenu = false;
+    showTitle = true;
     btnCYCV.show();
-
     background(0);
   }
+  }
+
+
 
   function scrollToBottom() {
   window.scrollTo({
@@ -434,3 +671,7 @@ function pressMatch() {
 //  achromatopsia/greyscale - total color blindness - black, white, grey
 // achromatomaly
         // possibly use images from https://www.colorblindnesstest.org/color-tools/color-blindness-simulator/ to show variations of color based on deficiency
+
+
+
+
