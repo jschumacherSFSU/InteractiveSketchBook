@@ -26,6 +26,10 @@
 // Global variables
 let images = [];
 let arrObj = [];
+let cx = 0;
+let cy = 0;
+let cnv;
+
 let currentIndex = 0;
 let canvasPos;
 let textTable;
@@ -36,6 +40,8 @@ let showLeft = false;
 let showLong = false;
 let showMenu = false;
 let fromMenu = false;
+let hRule;
+let vRule;
 
 // text variables
 let showMatchText = false;
@@ -77,80 +83,89 @@ function preload() {
 // 1. click "Let's Check your Color Vision" button
 function setup() {
     // use DOM to control div with script 
-    const cnv = createCanvas(790, 550); 
+    cnv = createCanvas(790, 550); 
     cnv.parent('canvasContainer') ;
+        background(0);
     canvasPos = cnv.position();
+    cx = canvasPos.x;
+    cy = canvasPos.y;
   //  set scroll to raise canvas into view
     let container = document.getElementById('canvasContainer');
     container.scrollTop = container.scrollIntoView;
 
-    background(0);
+
   //  make adjustment to position using canvas 
     // set button properties
     btnCYCV = createButton("Let's Begin >>");
-    btnCYCV.position (windowWidth/2 - btnCYCV.width - 30 ,windowHeight/2 + 400);
+    btnCYCV.parent('canvasContainer'); // Put it in the same div
     btnCYCV.size(200,50);
     btnCYCV.style('font-size','24px');
     btnCYCV.style('color', 'black');
     btnCYCV.style('background-color', '0');
     btnCYCV.style('border-radius','10px');
+    btnCYCV.position (cx + width/2 -100, cy +height - 100);
     btnCYCV.mouseClicked(getMenu);
     
     btnStart = createButton("Start");
+    btnStart.parent('canvasContainer'); // Put it in the same div
     btnStart.size(200,50);
     btnStart.style('font-size','24px');
-    btnStart.position(canvasPos.x + 385 - btnStart.width/2 ,canvasPos.y + 125);
-    // btnStart.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnStart.style('border-radius','10px');
+    btnStart.position(cx + width/2 - btnStart.width/2 ,cy + 125);
     btnStart.hide();
     btnStart.mouseClicked(startToggle);
 
     btnMatch = createButton("MATCH");
-    btnMatch.position(windowWidth/2 - btnStart.width/2 -80,windowHeight/2 + 60);
+    btnMatch.parent('canvasContainer'); // Put it in the same div
     btnMatch.size(125,25);
     btnMatch.style('font-size','18px');
     btnMatch.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnMatch.style('border-radius','10px');
+    btnMatch.position(cx + width/2 - btnMatch.width -10, cy + height - 450);
     btnMatch.mouseClicked(pressMatch);
     btnMatch.hide();
 
     btnNoMatch = createButton("NO MATCH");
-    btnNoMatch.position(windowWidth/2 - btnStart.width/2+70 ,windowHeight/2 + 60);
+    btnNoMatch.parent('canvasContainer'); // Put it in the same div
     btnNoMatch.size(125,25);
     btnNoMatch.style('font-size','18px');
     btnNoMatch.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnNoMatch.style('border-radius','10px');
+    btnNoMatch.position(cx + width/2 + 10, cy + height - 450);
     btnNoMatch.mouseClicked(pressNoMatch);
     btnNoMatch.hide();
 
     btnEnd = createButton("End");
-    btnEnd.position(windowWidth/2 - btnStart.width/2 ,canvasPos.y+115);
+    btnEnd.parent('canvasContainer'); // Put it in the same div
     btnEnd.size(125,25);
     btnEnd.style('font-size','18px');
     btnEnd.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnEnd.style('border-radius','10px');
+    btnEnd.position(cx + width/2 - btnEnd.width/2 ,cy+105);
     btnEnd.mouseClicked(startOver);
     btnEnd.hide();
 
     btnNext = createButton("Next");
-    btnNext.position(windowWidth/2 - btnStart.width/2 ,windowHeight/2 + 100);
+    btnNext.parent('canvasContainer'); // Put it in the same div
     btnNext.size(125,25);
     btnNext.style('font-size','18px');
-    // btnNext.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnNext.style('border-radius','10px');
+    btnNext.style('box-shadow', '10px 10px 10px #9a9a9a');
+    btnNext.position(cx + width/2 - btnNext.width/2  ,cy + 115);
     btnNext.mouseClicked(goNext);
     btnNext.hide();
 
-    btnExam = createButton("Begin Exam")
-    btnExam.position(windowWidth/2 - btnCYCV.width/2 - 30 ,windowHeight/2 + 400);
+    btnExam = createButton("Begin Exam");
+    btnExam.parent('canvasContainer'); // Put it in the same div
+
     btnExam.size(200,50);
     btnExam.style('font-size','24px');
-    // btnExam.style('box-shadow', '10px 10px 10px #9a9a9a');
     btnExam.style('border-radius','10px');
+    btnExam.position(cx + width/2 - btnExam.width/2 ,cy + height - 70);
     btnExam.mouseClicked(checkVision);
     btnExam.hide();
 
-
+    
     imageMode(CENTER);
 
     // force scroll to bottom of window
@@ -163,9 +178,10 @@ function setup() {
 
 function draw() {
   console.log('showTitle:', showTitle, 'showMenu:', showMenu);
-  
+    
   // splash screen
   if (showTitle){
+
 
     textAlign(CENTER, CENTER);
     textSize(60);
@@ -198,23 +214,23 @@ function draw() {
   // Menu screen
   // display a title "Vision Menu", 8 buttons (1 per condition), a horizontal line below the 8 buttons, and below the line a single button 
 if(showMenu){
- textAlign(CENTER, TOP);
- textSize(40);
- fill (255);
- text("Vision Menu", width/2, 25);
 
-
- textStyle(NORMAL);
- textAlign(CENTER);
- textWrap(WORD);
- textSize(20);
- fill(255);
- text("You may look at an individual condition by selecting one of the eight buttons below, or you may run the entire exam from the beginning by selecting the Begin Exam button at the bottom of the screen.", width/2 - 350, 75 ,700);
+    console.log("x: ",cx, "y: ", cy)
+    textAlign(CENTER, TOP);
+    textSize(40);
+    fill (255);
+    text("Vision Menu", width/2, 25);
+    textStyle(NORMAL);
+    textAlign(CENTER);
+    textWrap(WORD);
+    textSize(20);
+    fill(255);
+    text("You may look at an individual condition by selecting one of the eight buttons below, or you may run the entire exam from the beginning by selecting the Begin Exam button at the bottom of the screen.", cx - width/2 -127.5, cy - 350, 700);
 // load buttons
 
   // draw line
-  stroke('magenta');
-  line(50,canvasPos.y-10 , 740, canvasPos.y-10);
+  stroke(255);
+  line(50,cy-10 , 740, cy-10);
 }
 
     // create 3 boxes to work with: 1) instructions 2)base image 3)comparison
@@ -236,7 +252,7 @@ if(showMenu){
     // 3
   if (showRight){
     push();
-    translate(offset, offsetY); 
+     translate(offset, offsetY); 
     fill(255);
     rect(offset+400,offsetY+160, 380, 380); 
     pop();
@@ -248,7 +264,7 @@ if(showMenu){
     textWrap(WORD);
     textStyle(NORMAL);
     fill(0);
-    text("In this app, you will have an opportunity to see if you have Color Vision Deficiency also known as color blindness. You will also see how people with various types of color vision deficiency see color. ", offset,offsetY+20,770);
+    text("In this app, you will have an opportunity to see if you have Color Vision Deficiency also known as color blindness. You will also see how people with various types of color vision deficiency see color. ", offset + 20, offsetY+20,770);
 
     // 2. Show directions text
 
@@ -260,8 +276,8 @@ if(showMenu){
     stroke(0);
     noFill();
     rect(rectX, rectY, rectW, rectH);
-    let cx = rectX + rectW/2;
-    let cy = rectY + rectH/2;
+    let ctrX = rectX + rectW/2;
+    let ctrY = rectY + rectH/2;
 
     let part1 = "When you're ready click the ";
     let part2 = "START";
@@ -271,20 +287,20 @@ if(showMenu){
     textSize(16);
     textAlign(CENTER,CENTER);
     let totalWidth = textWidth(part1 + part2 + part3);
-    let startX = cx - totalWidth/2;
+    let startX = ctrX - totalWidth/2;
 
     textStyle(NORMAL);
     let w1 = textWidth(part1);
-    text(part1, startX +w1/2, cy);
+    text(part1, startX +w1/2, ctrY);
 
     textStyle(BOLD);
     let w2 = textWidth(part2);
-    text(part2, startX + w1 + w2/2, cy);
+    text(part2, startX + w1 + w2/2, ctrY);
 
     // Draw Part 3 (Normal)
     textStyle(NORMAL);
     let w3 = textWidth(part3);
-    text(part3, startX + w1 + w2 + w3/2, cy);
+    text(part3, startX + w1 + w2 + w3/2, ctrY);
   }
 
   if(showText1){
@@ -309,7 +325,7 @@ if(showMenu){
     textStyle(NORMAL);
     fill(0);
     text("Look closely at the two images and compare them. ", offset,offsetY+40,770); 
-    text("If you think they are the same, click MATCH otherwise click NO MATCH.", offset,offsetY+60,770)    
+    text("If you think they are the same, click MATCH otherwise click NO MATCH.", offset,offsetY+70,770)    
   }
 
   if (baseVisible){
@@ -348,63 +364,69 @@ if(showMenu){
           textWrap(WORD);
           textStyle(NORMAL);
           fill(0);
-          text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
-          text('You can press END to reset the quiz.',offset,offsetY+80,750);
+          text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+30,750);
+          text('You can press END to reset the quiz.',offset,offsetY+90,750);
+          textSize(24);
+          text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
     }else
-      if (showMatchText){
-          textAlign(CENTER);
-          textSize(16);
-          textWrap(WORD);
-          textStyle(NORMAL);
-          fill(0);
-          text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
-          text('You can press END to reset the quiz, or press NEXT to see other comparisons.',offset,offsetY+80,750);
-          
-          textAlign(CENTER); 
-          textSize(24);  
-          fill(0);
-          text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
-          }
+              if (showMatchText){
+                  btnEnd.position(cx + width/2 - btnEnd.width *2 ,cy+110);
+                  btnNext.position(cx + width/2 + btnNext.width ,cy + 110);
+                  textAlign(CENTER);
+                  textSize(16);
+                  textWrap(WORD);
+                  textStyle(NORMAL);
+                  fill(0);
+                  text(`You may have a ${textTable.getString(currentIndex,"Color")} color vision deficiency known as ${textTable.getString(currentIndex,"Caption")}. It is nothing to worry about, but your eye doctor can tell you more about it.`, offset+10,offsetY+40,750);
+                  text('You can press END to reset the quiz, or press NEXT to see other comparisons.',offset,offsetY+80,750);
+                  
+                  textAlign(CENTER); 
+                  textSize(24);  
+                  fill(0);
+                  text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360);
+                  }
       
 
 
-  if (showNoMatchText && currentIndex >= images.length-1){
-      console.log('1fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText);
+  if(showNoMatchText && fromMenu){
+        console.log('1fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText)
         textAlign(CENTER);
         textSize(16);
         textWrap(WORD);
         textStyle(NORMAL);
         fill(0);
-        text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
-        text("That was the last comparison. We hope you found this useful.", offset,offsetY+80,770);
-        text("Press NEXT to end the quiz.", offset,offsetY+120,770);
-        textAlign(CENTER); 
+        text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+20,770);
+        text("Press END to return to the Vision Menu.", offset,offsetY+50,770);
         textSize(24);
-        fill(0);
         text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
-      } else if(showNoMatchText && fromMenu){
-                console.log('2fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText)
-                textAlign(CENTER);
-                textSize(16);
-                textWrap(WORD);
-                textStyle(NORMAL);
-                fill(0);
-                text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
-                text("Press END to return to the Vision Menu.", offset,offsetY+80,770);
-            } else if(showNoMatchText ){
-                    console.log('3fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText)
-                    textAlign(CENTER);
-                    textSize(16);
-                    textWrap(WORD);
-                    textStyle(NORMAL);
-                    fill(0);
-                    text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+40,770);
-                    text("Ready for the next comparison?", offset,offsetY+80,770);
-                    text("Press NEXT to continue.", offset,offsetY+120,770);
-                    textAlign(CENTER); 
-                    textSize(24);
-                    fill(0);
-                    text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+            } else if (showNoMatchText && currentIndex >= images.length-1){
+                    console.log('2fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText);
+                      textAlign(CENTER);
+                      textSize(16);
+                      textWrap(WORD);
+                      textStyle(NORMAL);
+                      fill(0);
+                      text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+30,770);
+                      text("That was the last comparison. We hope you found this useful.", offset,offsetY+60,770);
+                      text("Press END to return to the Vision Menu.", offset,offsetY+90,770);
+                      textAlign(CENTER); 
+                      textSize(24);
+                      fill(0);
+                      text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
+                    } else if(showNoMatchText ){
+                                  console.log('3fromMenu=',fromMenu, 'showNoMatchText=',showNoMatchText)
+                                  textAlign(CENTER);
+                                  textSize(16);
+                                  textWrap(WORD);
+                                  textStyle(NORMAL);
+                                  fill(0);
+                                  text(`This was a test for ${textTable.getString(currentIndex,"Caption")}, a form of ${textTable.getString(currentIndex,"Color")} color vision deficiency. You don't seem to have it.`,offset,offsetY+30,770);
+                                  text("Ready for the next comparison?", offset,offsetY+60,770);
+                                  text("Press NEXT to continue.", offset,offsetY+90,770);
+                                  textAlign(CENTER); 
+                                  textSize(24);
+                                  fill(0);
+                                  text(`${textTable.getString(currentIndex,"Caption")}`, offset + width/2, offsetY + 550/2 +200, 360 );
             }
           }         
 
@@ -445,7 +467,7 @@ function buildMenuButtons() {
 
 
 function getMenu(){
- console.log('getMenu called')
+ console.log('getMenu called');
   showTitle = false;
   console.log('after getMenu, showTitle = ', showTitle);
   btnCYCV.hide();
@@ -576,6 +598,13 @@ function pressNoMatch(){
     btnNoMatch.hide();
     showNoMatchText = true;
         showText2 = false;
+    } else if(currentIndex >= images.length-1){
+      btnMatch.hide();
+    btnNoMatch.hide();
+    btnEnd.show();
+    btnNext.hide();
+    showNoMatchText = true;
+    showText2 = false;
     }else{
     btnMatch.hide();
     btnNoMatch.hide();
@@ -639,7 +668,49 @@ function pressNoMatch(){
   }
   }
 
+function positionButtons() {
+  const colLeftX  = cx + width / 2 - 200;  
+  const colRightX = cx + width / 2 + 40;   
 
+  const topY = cy + 125;     // 125 px from top of canvas
+  const rowSpacing = 50;
+
+  // for (let i = 1; i < textTable.getRowCount(); i++) {
+  //   let arrData = {
+  //     title: textTable.getString(i, "Caption"),
+  //     img: images[i],
+  //   };
+ for (let item of arrObj) {
+    let i = item.index; 
+    // column and row indices
+    let col = (i <=4) ? 0 : 1;       // 0 = left, 1 = right
+    let row = (i <=4) ? i : i - 4;   // rows 0..3
+
+    let x = (col === 0) ? colLeftX : colRightX;
+    let y = topY + row * rowSpacing;
+ }
+
+    // menu buttons
+  for (let item of arrObj) {
+    item.btn.position(x, y+5);
+  }
+  btnCYCV.position(cx + width/2 - 100, cy + height - 100);
+  btnStart.position(cx + width/2 - btnStart.width/2, cy + 125);
+  btnMatch.position(cx + width/2 - btnMatch.width - 10, cy + height - 450);
+  btnNoMatch.position(cx + width/2 + 10, cy + height - 450);
+  btnEnd.position(cx + width/2 - btnEnd.width/2, cy + 115);
+  btnNext.position(cx + width/2 - btnNext.width/2, cy + 115);
+  btnExam.position(cx + width/2 - btnExam.width/2, cy + height - 70);
+}
+
+function windowResized() {
+  cnv = getCanvas(); 
+  canvasPos = cnv.position();
+  cx = canvasPos.x;
+  cy = canvasPos.y;
+
+  positionButtons();
+}
 
   function scrollToBottom() {
   window.scrollTo({
