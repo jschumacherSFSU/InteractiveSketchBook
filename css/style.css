@@ -149,3 +149,7 @@ canvas{
 .align-right{
     text-align: right;
 }
+
+#final{
+    text-align: center;
+}
