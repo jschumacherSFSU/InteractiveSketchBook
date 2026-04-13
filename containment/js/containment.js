@@ -9,9 +9,9 @@ let timerStarted = false;
 let level = 1;
 
 function setup(){
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth, 800);
     rectMode(CENTER);     // MEASURES FROM CENTER OF SHAPE
-   
+}
 
 function draw(){
     background(0);
@@ -85,6 +85,5 @@ function keyPressed(){
 // take current value of offset and each time key is pressed, adds 20 to value, and save to new value
 
 function windowResized(){
-    resizeCanvas(windowWidth, windowHeight);
-}
+    resizeCanvas(windowWidth, 800);
 }
