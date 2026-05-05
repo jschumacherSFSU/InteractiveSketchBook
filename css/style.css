@@ -31,7 +31,7 @@ li {
     list-style: none;
 }
 
- a {
+ /* a {
     color: white;
     padding: 10px 20px;
     border: 2px solid #2e0264;
@@ -39,7 +39,7 @@ li {
     transition: background-color 0.3s, color 0.3s;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
     background-color:rgb(46, 2, 100, 0.7);
-}
+} */
 
 .grid-container{
     margin: auto;
