@@ -5,7 +5,7 @@ body{
     overflow: scroll;
 }
 header {
-    background-color: #2e0264;
+    background-color:rgb(46, 2, 100, 0.7);
     padding: 20px 0;
     margin-bottom: 50px;
 }
