@@ -557,7 +557,7 @@ window.focus();
 // 4. KeyPressed == "space" - this will begin  to iterate through arrays, swapping comparison images and text from csv file.
   // if (key === ' '){
     // work through images array and imageLabel array. use currentIndex as counter to keep track of which image is active.
-// 3/17/26 - added btnNext - change to button per peer feedback - renamed function to "goNext"
+//../26 - added btnNext - change to button per peer feedback - renamed function to "goNext"
 function goNext() {
    
     currentIndex++; //increment index
