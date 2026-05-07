@@ -9,11 +9,14 @@ header {
     background-color: #2e0264;
     padding: 20px 0;
     margin-bottom: 50px;
+    position:sticky;
+    top:0;
 }
 
 nav {
   overflow: visible;
   background-color: #333;
+  margin-left: 50px;
 }
 
 nav a {
@@ -89,7 +92,7 @@ p {
 }   
 
 li {
-    text-align: center;
+    /* text-align: center; */
     margin: 50px 0;
     font-size: 1rem;
     list-style: none;
@@ -116,18 +119,18 @@ li {
 }
 .page-banner{
   display: block;
-  margin-left: 25px;
+  margin-left: 50px;
   margin-top: 100px;
   align-items: left;
   color: white;
-  font-size: 24px;
+  font-size: 28px;
 }
 .page-title {
   display: inline;
 }
 
 ol li {
-  margin: 20px 0;
+  margin: 5px 0;
   font-size: 1.2em;
   color: black;
   font-weight: normal;
