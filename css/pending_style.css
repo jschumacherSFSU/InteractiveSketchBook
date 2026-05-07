@@ -91,7 +91,7 @@ p {
 li {
     text-align: center;
     margin: 50px 0;
-    font-size: 2rem;
+    font-size: 1rem;
     list-style: none;
 }
 
@@ -126,4 +126,10 @@ li {
   display: inline;
 }
 
+ol li {
+  margin: 20px 0;
+  font-size: 1.2em;
+  color: black;
+  font-weight: normal;
+}
 /* Mobile */
