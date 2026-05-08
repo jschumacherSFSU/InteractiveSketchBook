@@ -14,9 +14,10 @@ header {
 }
 
 nav {
+  display:flex;
   overflow: visible;
-  background-color: #333;
   margin-left: 50px;
+  ;
 }
 
 nav a {
@@ -27,6 +28,10 @@ nav a {
   padding: 14px 16px;
   text-decoration: none;
 }
+
+.menu {
+display:block 
+} 
 
 .dropdown {
   float: left;
@@ -117,6 +122,11 @@ li {
 {
     background-color: rgb(46, 2, 100, 1);
 }
+
+#mobile-home {
+   display: none;
+}
+
 .page-banner{
   display: block;
   margin-left: 50px;
@@ -135,4 +145,21 @@ ol li {
   color: black;
   font-weight: normal;
 }
-/* Mobile */
+/* >>>>>>>>>>>>>>>>>>>>>>>>> Mobile <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*                                                                */
+/* >>>>>>>>>>>>>>>>>>>>>>>>>.Mobile <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+@media only screen and (max-width: 767px) {
+
+  #home {
+    display: none;
+  }
+#mobile-home {
+    display: inline-block;
+    background-color: rgb(176, 111, 233);
+    border-radius: 5px;
+   }
+#mobile-home:active
+{
+    background-color: rgb(46, 2, 100, 1);
+}
+}
