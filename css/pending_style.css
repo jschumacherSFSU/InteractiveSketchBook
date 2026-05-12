@@ -145,12 +145,22 @@ ol li {
   color: black;
   font-weight: normal;
 }
-/* >>>>>>>>>>>>>>>>>>>>>>>>> Mobile <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*                                                                */
-/* >>>>>>>>>>>>>>>>>>>>>>>>>.Mobile <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-@media only screen and (max-width: 767px) {
+.mobile-list {
+  display: none;
+}
+.mobile-nav {
+  display: none;
+}
+.nav-mobile {
+  display: none;
+}
+.checkbtn {
+  display: none;
+}
 
-  #home {
+/* >>>>>>>>>>>>>>>>>>>>>>>>> Mobile #1 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+@media screen and (768px <= width <= 939px) {
+#home {
     display: none;
   }
 #mobile-home {
@@ -162,4 +172,121 @@ ol li {
 {
     background-color: rgb(46, 2, 100, 1);
 }
+.mobile-nav{
+  display: block;
+}
+.desk-nav {
+  display: none;
+}
+.checkbtn {
+ font-size: 1.5rem;
+ color: #fff;
+ cursor: pointer;
+}
+#check{
+display: none;
+}
+#check:checked ~ .nav-mobile {
+ display: block;
+}
+.nav-mobile {
+ position: absolute;
+ top: 4.5rem;
+ left: 50%;
+ background: #222831;
+ z-index: 1;
+ width: 200px;
+}
+.nav-mobile a {
+ color: #fff;
+ padding: 1rem 1.5rem;
+ display: block;
+}
+.checkbtn {
+ display: block;
+ font-size: 3rem;
+ position: absolute;
+ top: 30px;
+right: 35px;
+ }
+.nav-mobile {
+ top: 100px;
+ width: 50%;
+ }
+.nav-mobile a {
+ font-size: 1rem;
+ padding: 2rem 3rem;
+ }
+}
+/* >>>>>>>>>>>>>>>>>>>>>>>>>.Mobile#2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+@media only screen and (max-width: 767px) {
+#mobile-home {
+    display: inline-block;
+    background-color: rgb(176, 111, 233);
+    border-radius: 5px;
+   }
+#mobile-home:active
+{
+    background-color: rgb(46, 2, 100, 1);
+}
+.mobile-nav{
+  display: block;
+}
+.desk-nav {
+  display: none;
+}
+.desktop-list {
+  display: none;
+}
+.mobile-list {
+  display: block;
+}
+.desktop-nav {
+  display: none;
+}
+.mobile-nav {
+  display: block;
+padding: 1.5rem 2rem;
+ /* background-color: #fff; */
+ color: #000;
+}
+.checkbtn {
+ font-size: 1.5rem;
+ color: #fff;
+ cursor: pointer;
+}
+#check{
+display: none;
+}
+#check:checked ~ .nav-mobile {
+ display: block;
+}
+.nav-mobile {
+ position: absolute;
+ top: 4.5rem;
+ left: 50%;
+ background: #222831;
+ z-index: 1;
+ width: 200px;
+}
+.nav-mobile a {
+ color: #fff;
+ padding: 1rem 1.5rem;
+ display: block;
+}
+.checkbtn {
+ display: block;
+ font-size: 3rem;
+ position: absolute;
+ top: 30px;
+ right: 35px;
+}
+.nav-mobile {
+ top: 100px;
+ width: 50%;
+ }
+.nav-mobile a {
+ font-size: 1rem;
+ padding: 2rem 3rem;
+ }
 }

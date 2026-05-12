@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/pending_style.css">
-
+        <script src="https://kit.fontawesome.com/862ac1183a.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
     <title>Micro Idea 3 v3</title>
@@ -14,21 +14,23 @@
 
  <header>
        
-       <nav>
-            <a href="../index.html">John Schumacher</a>
+        <nav class="desk-nav">
+            <a href="../index.html" id="home">John Schumacher</a>
+
+
+            <div class="menu">
             <div class="dropdown">            
                 <button class="dropbtn">p5.js Sketches</button>
-                    <div class="dropdown-content">
-
-                            <a href="../sketch1/sketch1.html">Sketch 1</a>
-                            <a href="../sketch2/sketch2.html">Sketch 2</a>
-                            <a href="../sketch3/sketch3.html">Sketch 3</a>
-                            <a href="../sketch4/sketch4.html">Sketch 4</a>
-                        <a href="../sketch5/sketch5.html">Sketch 5</a>
-                        <a href="../sketch6/sketch6.html">Sketch 6</a>
-                        <a href="../sketch7/sketch7.html">Sketch 7</a>
-                        <a href="../sketch8/sketch8.html">Sketch 8</a>
-                        <a href="../sketch9/sketch9.html">Sketch 9</a>
+                <div class="dropdown-content">
+                    <a href="sketch1/sketch1.html">Sketch 1</a>
+                    <a href="sketch2/sketch2.html">Sketch 2</a>
+                    <a href="sketch3/sketch3.html">Sketch 3</a>
+                        <a href="sketch4/sketch4.html">Sketch 4</a>
+                        <a href="sketch5/sketch5.html">Sketch 5</a>
+                        <a href="sketch6/sketch6.html">Sketch 6</a>
+                        <a href="sketch7/sketch7.html">Sketch 7</a>
+                        <a href="sketch8/sketch8.html">Sketch 8</a>
+                        <a href="sketch9/sketch9.html">Sketch 9</a>
                     </div>
             </div> 
             <div class="dropdown">
@@ -36,34 +38,49 @@
                 <button class="dropbtn">MicroProject</button>
                     <div class="dropdown-content">
 
-                            <a href="../micro-ideas/micro.html">Micro Ideas Project</a>
-                            <a href="../MicroIdeaChart/microIdeaChart.html">Micro-Idea Chart</a>
-                            <a href="../MicroIdeaProgress/microprogress.html">Micro-Idea Progress</a>
-                            <a href="../MicroIdea_3/microidea3.html">Micro-Idea 3</a>
-                            <a href="../MicroIdea_3_Revised/microidea3r.html">Micro-Idea 3 Revised</a>
-                            <a href="../containment/contain.html">Containment</a>
-                            <a href="../Micro-Project Self-Assessment/self.html">Self-Assessment</a>
-                            <a href="../MicroIdea_3_v3/microidea3v3.html">Micro-Project Final</a>
-                            <a href="../audit/audit.html">Interface Audit</a>
+                            <a href="micro-ideas/micro.html">Micro Ideas Project</a>
+                            <a href="MicroIdeaChart/microIdeaChart.html">Micro-Idea Chart</a>
+                            <a href="MicroIdeaProgress/microprogress.html">Micro-Idea Progress</a>
+                            <a href="MicroIdea_3/microidea3.html">Micro-Idea 3</a>
+                            <a href="MicroIdea_3_Revised/microidea3r.html">Micro-Idea 3 Revised</a>
+                            <a href="containment/contain.html">Containment</a>
+                            <a href="Micro-Project Self-Assessment/self.html">Self-Assessment</a>
+                            <a href="MicroIdea_3_v3/microidea3v3.html">Micro-Project Final</a>
+                            <a href="audit/audit.html">Interface Audit</a>
                     </div>
             </div>
             <div class="dropdown">
                 <button class="dropbtn">Reflections</button>
                     <div class="dropdown-content">
-                        <a href="../norman/norman.html">Reflection 1: Norman</a>
-                        <a href="../neilsen/neilsen.html">Reflection 2: Neilsen</a>
-                        <a href="../shneiderman/shneiderman.html">Reflection 3: Shneiderman</a>
+                        <a href="norman/norman.html">Reflection 1: Norman</a>
+                        <a href="neilsen/neilsen.html">Reflection 2: Neilsen</a>
+                        <a href="shneiderman/shneiderman.html">Reflection 3: Shneiderman</a>
                     </div>
             </div>
             <div class="dropdown">
                 <button class="dropbtn">Interface Dev</button>
                     <div class="dropdown-content">
-                        <a href="../prototype-wk1/prototype-wk1.html">Prototype Week 1</a>
-                        <a href="../prototype-wk2/prototype-wk2.html">Prototype Week 2</a>                       
-                        <a href="../prototype-wk3/prototype-wk3.html">Prototype Week 3</a> 
-                        <a href="../prototype-final/prototype-final.html">Prototype Final</a>
-                        <a href="../system_assessment/assessment.html">System Assessment</a>
+                        <a href="prototype-wk1/prototype-wk1.html">Prototype Week 1</a>
+                        <a href="prototype-wk2/prototype-wk2.html">Prototype Week 2</a>
+                        <a href="prototype-wk3/prototype-wk3.html">Prototype Week 3</a>
+                        <a href="prototype-final/prototype-final.html">Prototype Final</a>
+                        <a href="system_assessment/assessment.html">System Assessment</a>
                     </div>
+            </div>
+
+            </div>
+        </nav>
+        <nav class="mobile-nav">
+            <a href="../index.html" id="mobile-home">JS</a>
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <div class="nav-mobile">
+                <a href="#">p5.js Sketches</a>
+                <a href="../MicroIdea_3_v3/microidea3v3.html">MicroProject</a>
+                <a href="#">Reflections</a>
+                <a href="#">Interface Dev</a>
             </div>
         </nav>
 
