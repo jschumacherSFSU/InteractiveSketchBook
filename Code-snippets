@@ -57,3 +57,23 @@
 
         <div class="page-banner"><span>DES 325 Progress Catalog - </span><span class="page-title">Sketch 1</span></div>
     </header>
+
+
+    1. Static Method (Manual)If you have separate HTML files for each page, you can manually add the active class to the appropriate link in each file.HTML (index.html):html<nav class="navbar">
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+</nav>
+CSS:css/* Style for all links */
+.navbar a {
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+/* Style for the active link */
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
