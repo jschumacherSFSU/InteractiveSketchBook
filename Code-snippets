@@ -59,7 +59,9 @@
     </header>
 
 
-    1. Static Method (Manual)If you have separate HTML files for each page, you can manually add the active class to the appropriate link in each file.HTML (index.html):html<nav class="navbar">
+    1. Static Method (Manual)If you have separate HTML files for each page, you can manually add the active class to the appropriate link in each file.HTML (index.html):html
+    
+    <nav class="navbar">
   <a href="index.html" class="active">Home</a>
   <a href="about.html">About</a>
   <a href="services.html">Services</a>

@@ -80,6 +80,12 @@ nav a:hover, .dropdown:hover .dropbtn {
 
 .dropdown:hover > .dropdown-content {
   display: block;
+
+  .dropdown:active .dropbtn {
+    background-color: rgb(176, 111, 233);
+    color: white;
+    border-radius: 5px;
+  }
 }
 
 
@@ -114,14 +120,27 @@ li {
     /* background-color:rgb(46, 2, 100, 0.7); */
 }
 
-#home {
+#home:focus {
     background-color: rgb(176, 111, 233);
     border-radius: 5px;
 }
-#home:active
+
+#current #home {
+    background-color: rgb(176, 111, 233);
+    border-radius: 5px;
+}
+
+/* #home:active
 {
     background-color: rgb(46, 2, 100, 1);
+} */
+.dropdown:has(.active) .dropbtn {
+    background-color: rgb(176, 111, 233);
+    color: white;
+    border-radius: 5px;
 }
+
+
 
 #mobile-home {
    display: none;
@@ -138,6 +157,14 @@ li {
 .page-title {
   display: inline;
 }
+
+/* #current .active {
+  background-color: rgb(176, 111, 233);
+  color: white;
+  border-radius: 5px;
+} */
+
+
 
 ol li {
   margin: 5px 0;
