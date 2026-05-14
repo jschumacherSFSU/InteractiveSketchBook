@@ -75,25 +75,19 @@ nav a:hover, .dropdown:hover .dropbtn {
 
 .dropdown-content > a:hover {
   background-color: rgb(176, 111, 233);
+  color: white;
   border-radius: 5px;
 }
 
 .dropdown:hover > .dropdown-content {
-  display: block;
+  display: block; 
+}
 
-  .dropdown:active .dropbtn {
+ .dropdown:active .dropbtn {
     background-color: rgb(176, 111, 233);
     color: white;
     border-radius: 5px;
   }
-}
-
-
-/* h1 {
-    text-align: center;
-    margin-top: 50px;
-    color: white;
-} */
 
 p {
     text-align: center;
@@ -103,7 +97,6 @@ p {
 }   
 
 li {
-    /* text-align: center; */
     margin: 50px 0;
     font-size: 1rem;
     list-style: none;
@@ -112,12 +105,7 @@ li {
  a {
     color: white;
     padding: 10px 5px;
-    /* border: 1px solid #2e0264; */
-    /* border-radius: 5px; */
     transition: background-color 0.3s, color 0.3s;
-    /* box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); */
-    /* background-color: #fff; */
-    /* background-color:rgb(46, 2, 100, 0.7); */
 }
 
 #home:focus {
@@ -130,17 +118,11 @@ li {
     border-radius: 5px;
 }
 
-/* #home:active
-{
-    background-color: rgb(46, 2, 100, 1);
-} */
 .dropdown:has(.active) .dropbtn {
     background-color: rgb(176, 111, 233);
     color: white;
     border-radius: 5px;
 }
-
-
 
 #mobile-home {
    display: none;
@@ -157,14 +139,6 @@ li {
 .page-title {
   display: inline;
 }
-
-/* #current .active {
-  background-color: rgb(176, 111, 233);
-  color: white;
-  border-radius: 5px;
-} */
-
-
 
 ol li {
   margin: 5px 0;
@@ -274,7 +248,6 @@ right: 35px;
 .mobile-nav {
   display: block;
 padding: 1.5rem 2rem;
- /* background-color: #fff; */
  color: #000;
 }
 .checkbtn {
