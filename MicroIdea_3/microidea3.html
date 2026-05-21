@@ -14,16 +14,18 @@
 
  <header>
        
-       <nav>
-            <a href="../index.html">John Schumacher</a>
+       <nav class="desk-nav" id="current">
+            <a href="../index.html" id="home">John Schumacher</a>
+
+
+            <div class="menu">
             <div class="dropdown">            
                 <button class="dropbtn">p5.js Sketches</button>
-                    <div class="dropdown-content">
-
-                            <a href="../sketch1/sketch1.html">Sketch 1</a>
-                            <a href="../sketch2/sketch2.html">Sketch 2</a>
-                            <a href="../sketch3/sketch3.html">Sketch 3</a>
-                            <a href="../sketch4/sketch4.html">Sketch 4</a>
+                <div class="dropdown-content">
+                    <a href="../sketch1/sketch1.html">Sketch 1</a>
+                    <a href="../sketch2/sketch2.html">Sketch 2</a>
+                    <a href="../sketch3/sketch3.html">Sketch 3</a>
+                        <a href="../sketch4/sketch4.html">Sketch 4</a>
                         <a href="../sketch5/sketch5.html">Sketch 5</a>
                         <a href="../sketch6/sketch6.html">Sketch 6</a>
                         <a href="../sketch7/sketch7.html">Sketch 7</a>
@@ -31,14 +33,15 @@
                         <a href="../sketch9/sketch9.html">Sketch 9</a>
                     </div>
             </div> 
-           <div class="dropdown" id="current">            
+            <div class="dropdown">
+
                 <button class="dropbtn">MicroProject</button>
                     <div class="dropdown-content">
 
                             <a href="../micro-ideas/micro.html">Micro Ideas Project</a>
                             <a href="../MicroIdeaChart/microIdeaChart.html">Micro-Idea Chart</a>
                             <a href="../MicroIdeaProgress/microprogress.html">Micro-Idea Progress</a>
-                            <a href="../MicroIdea_3/microidea3.html" class="active">Micro-Idea 3</a>
+                            <a href="../MicroIdea_3/microidea3.html">Micro-Idea 3</a>
                             <a href="../MicroIdea_3_Revised/microidea3r.html">Micro-Idea 3 Revised</a>
                             <a href="../containment/contain.html">Containment</a>
                             <a href="../Micro-Project Self-Assessment/self.html">Self-Assessment</a>
@@ -58,11 +61,85 @@
                 <button class="dropbtn">Interface Dev</button>
                     <div class="dropdown-content">
                         <a href="../prototype-wk1/prototype-wk1.html">Prototype Week 1</a>
-                        <a href="../prototype-wk2/prototype-wk2.html">Prototype Week 2</a>                       
-                        <a href="../prototype-wk3/prototype-wk3.html">Prototype Week 3</a> 
+                        <a href="../prototype-wk2/prototype-wk2.html">Prototype Week 2</a>
+                        <a href="../prototype-wk3/prototype-wk3.html">Prototype Week 3</a>
                         <a href="../prototype-final/prototype-final.html">Prototype Final</a>
                         <a href="../system_assessment/assessment.html">System Assessment</a>
+                        <a href="../implementation-check/imp-check.html">Implementation Snapshot</a>
+                        <a href="../implementation_experiment_log/log.html">Experiment Log</a>
+
                     </div>
+            </div>
+
+            </div>
+        </nav>
+        <nav class="mobile-nav">
+            <a href="../index.html" id="mobile-home">JS</a>
+
+
+            <button type="button" class="hamburger-btn" popovertarget="nav-popover">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <div id="nav-popover" popover>
+                <div class="menu__list">
+                    <details class="dropmob">
+                        <summary>p5.js Sketches</summary>
+                        <ul class="submenu__list">
+                            <li class="submenu__item"><a href="../sketch1/sketch1.html" class="submenu__link">Sketch 1</a></li>
+                            <li class="submenu__item"><a href="../sketch2/sketch2.html" class="submenu__link">Sketch 2</a></li>
+                            <li class="submenu__item"><a href="../sketch3/sketch3.html" class="submenu__link">Sketch 3</a></li>
+                            <li class="submenu__item"><a href="../sketch4/sketch4.html" class="submenu__link">Sketch 4</a></li>
+                            <li class="submenu__item"><a href="../sketch5/sketch5.html" class="submenu__link">Sketch 5</a></li>
+                            <li class="submenu__item"><a href="../sketch6/sketch6.html" class="submenu__link">Sketch 6</a></li>
+                            <li class="submenu__item"><a href="../sketch7/sketch7.html" class="submenu__link">Sketch 7</a></li>
+                            <li class="submenu__item"><a href="../sketch8/sketch8.html" class="submenu__link">Sketch 8</a></li>
+                            <li class="submenu__item"><a href="../sketch9/sketch9.html" class="submenu__link">Sketch 9</a></li>
+                        </ul>
+
+                    </details class="dropmob">
+                    <details class="dropmob">
+                        <summary> MicroProject</summary>
+                        <ul class="submenu__list">
+                            <li class="submenu__item"><a href="../micro-ideas/micro.html" class="submenu__link">Micro Ideas Project</a></li>
+                            <li class="submenu__item"><a href="../MicroIdeaChart/microIdeaChart.html" class="submenu__link">Micro-Idea Chart</a></li>
+                            <li class="submenu__item"><a href="../MicroIdeaProgress/microprogress.html" class="submenu__link">Micro-Idea Progress</a></li>
+                            <li class="submenu__item"><a href="../MicroIdea_3/microidea3.html" class="submenu__link">Micro-Idea 3</a></li>
+                            <li class="submenu__item"><a href="../MicroIdea_3_Revised/microidea3r.html" class="submenu__link">Micro-Idea 3 Revised</a></li>
+                            <li class="submenu__item"><a href="../containment/contain.html" class="submenu__link">Containment</a></li>
+                            <li class="submenu__item"><a href="../Micro-Project Self-Assessment/self.html" class="submenu__link">Self-Assessment</a></li>
+                            <li class="submenu__item"><a href="../MicroIdea_3_v3/microidea3v3.html" class="submenu__link">Micro-Project Final</a></li>
+                            <li class="submenu__item"><a href="../audit/audit.html" class="submenu__link">Interface Audit</a></li>
+                        </ul>
+
+                    </details>
+
+                    <details class="dropmob">
+                        <summary>Reflections</summary>
+                        <ul class="submenu__list">
+                            <li class="submenu__item"><a href="../norman/norman.html" class="submenu__link">Reflection 1: Norman</a></li>
+                            <li class="submenu__item"><a href="../neilsen/neilsen.html" class="submenu__link">Reflection 2: Neilsen</a></li>
+                            <li class="submenu__item"><a href="../shneiderman/shneiderman.html" class="submenu__link">Reflection 3: Shneiderman</a></li>
+
+                    </details>
+
+                    <details class="dropmob">
+                        <summary>Interface Dev</summary>
+                        <ul class="submenu__list">
+                                <li class="submenu__item"><a href="../prototype-wk1/prototype-wk1.html" class="submenu__link">Prototype Week 1</a></li>
+                                <li class="submenu__item"><a href="../prototype-wk2/prototype-wk2.html" class="submenu__link">Prototype Week 2</a></li>
+                                <li class="submenu__item"><a href="../prototype-wk3/prototype-wk3.html" class="submenu__link">Prototype Week 3</a></li>
+                                <li class="submenu__item"><a href="../prototype-final/prototype-final.html" class="submenu__link">Prototype Final</a></li>
+                                <li class="submenu__item"><a href="../system_assessment/assessment.html" class="submenu__link">System Assessment</a></li>
+                                <li class="submenu__item"><a href="../implementation-check/imp-check.html" class="submenu__link">Implementation Snapshot</a></li>
+                                <li class="submenu__item"><a href="../implementation_experiment_log/log.html" class="submenu__link">Experiment Log</a></li>
+                        </ul>
+
+                    </details>
+
+
+                        </div>
             </div>
         </nav>
 

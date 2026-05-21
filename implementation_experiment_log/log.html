@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/pending_style.css">
-    <title>Micro-IdeaChart</title>
+    <title>Experiment Log</title>
 </head>
 <body>
-
-  <header>
+    <header>
        
        <nav class="desk-nav" id="current">
             <a href="../index.html" id="home">John Schumacher</a>
@@ -140,54 +139,60 @@
             </div>
         </nav>
 
-        <div class="page-banner"><span>DES 327 Progress Catalog - </span><span class="page-title">Micro-Idea Chart</span></div>
+        <div class="page-banner"><span>DES 327 Progress Catalog - </span><span class="page-title">Experiment Log</span></div>
     </header>
- <!-- <header class="page-hdr">
-        <a class="nav-button" href="../index.html">Home</a>
-        <a class="nav-button" href="../MicroIdeaProgress/microprogress.html">Micro Idea Progress</a>
-        <a class="nav-button" href="../micro-ideas/micro.html">Micro Ideas</a>
-        <a class="nav-button" href="../MicroIdea_3/microIdea3.html">Micro Idea 3</a>
+    <main class="page-main">    
 
-    </header> -->
-<main class="page-main">
-    <h2>What is the core rule of the system? </h2>
-    <p class="page-p">Answer: To make website accessible to users with visual deficiencies</p>
-    <h2>What changes over time?</h2>
-    <p class="page-p">Answer: The site uses alternate CSS profiles to accommodate different visual needs.</p>
-    <h2>Where does the system become uneven?</h2>
-    <p>Answer: The system may become uneven at the outset when it loads without visual accommodation.</p>
+        <h2>Interface Implementation - Experiment Log</h2>
+       <h3 class="log">Questions</h3>
+            <p>What translated cleanly from Figma?
+            What broke?
+            What surprised you?
+            What structural assumption did code expose?
+            What would you revise with more time?</p>
 
-    <img src="img/micro-idea-chart.png" alt="">
-
-    <p class="page-p">Notes:</p>
+        <h3>Log Entry:</h3>
+        <p>I continued to work on the mobile menu trying to get the hamburger menu to work. I was frustrated that the icon I used couldn't convert to and "x", so I did more research and found a way to build the hamburger and animate it. I struggled with getting the submenus to work. I found a tutorial that looked promising, but still working with the code to see if I can make it work in my code. In the end, I couldn't get the option to work, so I decided to use the method I had used on the mobile home page to condense the text there using details elements. After styling, it works pretty well. 
+            <br>
+            <br>
+        Overall, the translation of the desktop from Figma to code to screen went pretty well. I was able to implement my design effectively. I opted to change the color scheme a bit after I saw things on the screen. I like it better as it helps things stand out more and lends to the hierarchy. 
         <br>
-       <p class="page-p">Key Types of Color Blindness: <br></p> 
-        <ol>
-            <li>Red-Green Color Blindness (Most Common):
-                <ul>
-                    <li>Deuteranomaly: the most common type of red-green color vision deficiency. It makes certain shades of green look more red. This type is mild and doesn’t usually get in the way of normal activities.</li>
-                    <li>Protanomaly: makes certain shades of red look more green and less bright. This type is mild and usually doesn’t get in the way of normal activities.</li>
-                    <li>Deuteranopia: Complete lack of green-sensitive cones (M-cones).</li>
-                    <li>Protanopia: Complete lack of red-sensitive cones (L-cones).</li>
-                    <li>Note: Protanopia and deuteranopia both make someone unable to tell the difference between red and green at all.</li>
-                </ul>
-            </li>
-            
-            <li>Blue-Yellow Color Blindness (Less Common):
-                <ul>
-                    <li>Tritanomaly: makes it hard to tell the difference between blue and green and between yellow and red.</li>
-                    <li>Tritanopia: Complete lack of blue-sensitive cones (S-cones).makes someone unable to tell the difference between blue and green, purple and red, and yellow and pink. It also makes colors look less bright.</li>
-                </ul>
-            </li>
-            <li>Total Color Blindness (Very Rare):
-                <ul>
-                    <li>Monochromacy (Achromatopsia): Inability to see any color, often accompanied by poor visual acuity and high light sensitivity.</li>
-                </ul>
-            </li>
-            
-        </ol>
+        <br>
+        On the mobile side, it was similar, with the exception of the mobile menu. I had originally planned to have the menus at the bottom of the screen and submenues slide in, but given the time I had available I had to simplify. I was able to get the hamburger menu to work with a new tool I learned about - the popover API. It allows for a dropdown menu with less styling requirements. 
+        <br><br>
+        One thing I found out was that the p5.js canvases need more attention to make them work successfully. There is more I need to learn about how the elements work with the HTML structure to make them behave as I want. For example, in my MicroProject Final, I have a button that is in the center of the canvas. But once I started adjusting the screen size for the mobile view, that button was moving all over the place.
+        <br><br>
+        If I had more time, I would continue to try to make the mobile menus work as I'd envisioned. I think I could get them to work even if it meant revamping and building out separate pages to hold the menus. I would also like to continue to work on the p5.js canvases to make them more responsive and behave how I want them to.
+        </p>
+        <div class="desk__home">
+        <H3>Desktop Screenshots: Home page</H3>
+        <div class="img_container">
+        <figure><img src="img/DesktopHome_Figma.png" alt="" class="figma"> <figcaption>Figma</figcaption></figure></div>
 
-        <p>Definitions from the National Eye Institute of the National Institutes of health: <a href="https://www.nei.nih.gov/eye-health-information/eye-conditions-and-diseases/color-blindness/types-color-vision-deficiency#:~:text=Deuteranomaly%20is%20the%20most%20common,more%20green%20and%20less%20bright.">Visit site.</a> </p>
+        <div class="img_container"><figure><img src="img/DesktopHome_Implementation.png" alt="" class="imp"> <figcaption>Implementation</figcaption></figure></div>
+        </div> 
+
+        <div class="desk__micro">
+        <h3>Desktop Screenshot: MicroProject</h3>
+
+        <div class="img_container"><figure><img src="img/DesktopMicro_Figma.png" alt="" class="figma"> <figcaption>Figma</figcaption></figure></div>
+        <div class="img_container"><figure><img src="img/DesktopMicro_Implementation.png" alt="" class="imp"> <figcaption>Implementation</figcaption></figure></div>
+        </div>
+
+        <div class="mobile__home">
+        <h3>Mobile Screenshot: Home page</h3>
+        <div class="img_container">
+        <figure><img src="img/MobileHome_Figma.png" alt="" class="figma"> <figcaption>Figma</figcaption></figure></div>
+        <div class="img_container">
+        <figure><img src="img/MobileHome_Implementation.png" alt="" class="imp"> <figcaption>Implementation</figcaption></figure>
+        </div>
+         </div>
+        <h3>Mobile Screenshot: MicroProject</h3>
+       
+        <div class="mobile__micro">
+        <div class="img_container"><figure><img src="img/MobileMicro_Figma.png" alt="" class="figma"> <figcaption>Figma</figcaption></figure></div>
+        <div class="img_container"><figure><img src="img/MobileMicro_Implementation.png" alt="" class="imp"> <figcaption>Implementation</figcaption></figure></div>
+        </div>
     </main>
 </body>
 </html>

@@ -6,18 +6,22 @@ body{
     overflow: scroll;
 }
 header {
-    background-color: #2e0264;
+    background-color: rgb(46, 2, 100);
     padding: 20px 0;
     margin-bottom: 50px;
     position:sticky;
     top:0;
+    width: auto;
+    z-index: 1000;
+
 }
 
 nav {
   display:flex;
   overflow: visible;
-  margin-left: 50px;
-  ;
+  max-width: 1700px;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 
 nav a {
@@ -29,6 +33,9 @@ nav a {
   text-decoration: none;
 }
 
+#home{
+  margin-left: 20px
+}
 .menu {
 display:block 
 } 
@@ -51,7 +58,7 @@ display:block
   margin: 0;
 }
 nav a:hover, .dropdown:hover .dropbtn {
-  background-color: rgb(176, 111, 233);
+  background-color: rgb(115, 4, 251);
   border-radius: 5px;
 }
  .dropdown-content {
@@ -59,6 +66,7 @@ nav a:hover, .dropdown:hover .dropbtn {
   position: absolute;
   background-color: #fff;
   min-width: 225px;
+  border: 1px solid black;
   /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
 
   z-index: 1;
@@ -74,7 +82,7 @@ nav a:hover, .dropdown:hover .dropbtn {
 }
 
 .dropdown-content > a:hover {
-  background-color: rgb(176, 111, 233);
+  background-color: rgb(115, 4, 251);
   color: white;
   border-radius: 5px;
 }
@@ -84,7 +92,7 @@ nav a:hover, .dropdown:hover .dropbtn {
 }
 
  .dropdown:active .dropbtn {
-    background-color: rgb(176, 111, 233);
+    background-color: rgb(115, 4, 251);
     color: white;
     border-radius: 5px;
   }
@@ -109,17 +117,17 @@ li {
 }
 
 #home:focus {
-    background-color: rgb(176, 111, 233);
+    background-color: rgb(115, 4, 251);
     border-radius: 5px;
 }
 
 #current #home {
-    background-color: rgb(176, 111, 233);
+    background-color: rgb(115, 4, 251);
     border-radius: 5px;
 }
 
 .dropdown:has(.active) .dropbtn {
-    background-color: rgb(176, 111, 233);
+    background-color: rgb(115, 4, 251);
     color: white;
     border-radius: 5px;
 }
@@ -149,37 +157,77 @@ ol li {
 .mobile-list {
   display: none;
 }
-.mobile-nav {
-  display: none;
-}
-.nav-mobile {
-  display: none;
-}
-.checkbtn {
+
+#check {
   display: none;
 }
 
+.hamburger-btn{
+  display:none;
+}
+.log ~ p {
+  color: black;
+  font-size: 1em;
+  text-align: left;
+  margin: 20px 0;
+}
+
+.desk__home, .desk__micro, .mobile__home, .mobile__micro {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+
+.img_container{
+  flex: 1;
+  overflow: hidden;
+}
+
+.img_container img {
+width: 100%;
+height: 100%;
+  object-fit: cover;
+
+}
+
+
 /* >>>>>>>>>>>>>>>>>>>>>>>>> Mobile #1 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 @media screen and (768px <= width <= 939px) {
+
+.mobile-nav{
+  display: flex;
+  max-width: 900px;
+  margin: 0, 15px;
+}
+
+nav .mobile-nav a{
+padding: 2px, 10px; 
+}
+
 #home {
     display: none;
   }
 #mobile-home {
-    display: inline-block;
-    background-color: rgb(176, 111, 233);
+    display: flex;
+    background-color: rgb(115, 4, 251);
     border-radius: 5px;
+    margin: 0 15px;
    }
 #mobile-home:active
 {
-    background-color: rgb(46, 2, 100, 1);
+    background-color: rgb(46, 2, 100, .5);
 }
-.mobile-nav{
-  display: block;
+.submenu {
+  display: none;
 }
 .desk-nav {
   display: none;
 }
-.checkbtn {
+/* removed from use in html */
+
+/* .checkbtn {
  font-size: 1.5rem;
  color: #fff;
  cursor: pointer;
@@ -192,16 +240,21 @@ display: none;
 }
 .nav-mobile {
  position: absolute;
- top: 4.5rem;
- left: 50%;
- background: #222831;
+ top: 5rem;
+ right: 5px;
+ background: #fff;
  z-index: 1;
- width: 200px;
+ min-width: max-content;
+  border: 1px solid #000;
 }
 .nav-mobile a {
- color: #fff;
+ color: #000;
  padding: 1rem 1.5rem;
  display: block;
+}
+
+.nav-mobile a:focus .submenu {
+  display: block;
 }
 .checkbtn {
  display: block;
@@ -209,48 +262,153 @@ display: none;
  position: absolute;
  top: 30px;
 right: 35px;
- }
-.nav-mobile {
- top: 100px;
- width: 50%;
- }
-.nav-mobile a {
- font-size: 1rem;
- padding: 2rem 3rem;
- }
+ } */
+/* Popover */
+/* Base Hamburger Button */
+.hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Convert Hamburger to X when Popover is Open */
+.mobile-nav:has(#nav-popover:popover-open) .hamburger-btn .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-nav:has(#nav-popover:popover-open) .hamburger-btn .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav:has(#nav-popover:popover-open) .hamburger-btn .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Popover Styling */
+#nav-popover {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: .5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 60px;
+  margin-right:10px;
+
+}
+
+
+
+.menu__list {
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+    margin: 5px 0;
+}
+.dropmob summary{
+  margin: 5px 10px;
+  padding: 5px 10px;
+}
+
+summary:active{
+  background-color: rgba(115, 4, 251, 0.5);
+  border-radius: 5px;
+}
+.menu__list li a {
+  text-decoration: none;
+  color: #333;
+  font-family: sans-serif;
+  font-size: 1rem;
+  padding: 2px, 0;
+}
+
+/* .menu__item{
+  cursor: pointer;
+  margin:0;
+  padding: 10px 15px;
+} */
+
+.submenu__list {
+display: none;
+}
+
+.submenu__list a{
+  padding: 5px 10px;
+}
+
+.dropmob[open] .submenu__list {
+  display: block;
+    margin: 2px 0;
+}
+
+.submenu__item {
+margin: 0;
+padding: 0 10px;
+cursor: pointer;
+}
+
+.submenu__item:active {
+  background-color: rgb(115, 4, 251, .05);
+}
+
+.log ~ p {
+  color: black;
+  font-size: 1em;
+  text-align: left;
+  margin: 20px 0;
+}
 }
 /* >>>>>>>>>>>>>>>>>>>>>>>>>.Mobile#2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 @media only screen and (max-width: 767px) {
-#mobile-home {
-    display: inline-block;
-    background-color: rgb(176, 111, 233);
-    border-radius: 5px;
-   }
-#mobile-home:active
-{
-    background-color: rgb(46, 2, 100, 1);
-}
-.mobile-nav{
-  display: block;
-}
 .desk-nav {
   display: none;
 }
 .desktop-list {
   display: none;
 }
+.desktop-nav {
+  display: none;
+}  
+
+#mobile-home {
+    display: flex;
+    background-color: rgb(115, 4, 251);
+    border-radius: 5px;
+   }
+#mobile-home:active
+{
+    background-color: rgb(115, 4, 251, .5);
+}
+.mobile-nav {
+  display: flex;
+ justify-content: space-between;
+ margin:0 15px
+}
+
+
+
 .mobile-list {
   display: block;
 }
-.desktop-nav {
-  display: none;
-}
-.mobile-nav {
+
+/* .mobile-nav {
   display: block;
 padding: 1.5rem 2rem;
  color: #000;
-}
-.checkbtn {
+} */
+/* .checkbtn {
  font-size: 1.5rem;
  color: #fff;
  cursor: pointer;
@@ -261,33 +419,140 @@ display: none;
 #check:checked ~ .nav-mobile {
  display: block;
 }
-.nav-mobile {
+.nav-mobile:checked ~ .submenu{
+  display: none;
+} */
+
+.submenu ul {
+  display: none;
+}
+
+/* .nav-mobile {
  position: absolute;
- top: 4.5rem;
- left: 50%;
+ top: 5rem;
+ right: 5px;
  background: #fff;
  z-index: 1;
- width: 200px;
- border-radius: 10px;
+  min-width: max-content;
+  border: 1px solid #000;
 }
 .nav-mobile a {
  color: #000;
  padding: 1rem 1.5rem;
  display: block;
+} */
+.submenu {
+  display: none;
 }
-.checkbtn {
- display: block;
- font-size: 3rem;
- position: absolute;
- top: 30px;
- right: 35px;
+
+/* Popover */
+/* Base Hamburger Button */
+.hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  position: relative;
+  z-index: 10;
 }
-.nav-mobile {
- top: 100px;
- width: 50%;
- }
-.nav-mobile a {
- font-size: 1rem;
- padding: 2rem 3rem;
- }
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Convert Hamburger to X when Popover is Open */
+.mobile-nav:has(#nav-popover:popover-open) .hamburger-btn .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-nav:has(#nav-popover:popover-open) .hamburger-btn .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav:has(#nav-popover:popover-open) .hamburger-btn .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Popover Styling */
+/* #nav-popover {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 10px;
+} */
+
+#nav-popover {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: .5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 60px;
+  margin-right:10px;
+
+}
+.menu__list {
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+    margin: 5px 0;
+}
+.dropmob summary{
+  margin: 5px 10px;
+  padding: 5px 10px;
+}
+
+summary:active{
+  background-color: rgba(115, 4, 251, 0.5);
+  border-radius: 5px;
+}
+.menu__list li a {
+  text-decoration: none;
+  color: #333;
+  font-family: sans-serif;
+  font-size: 1rem;
+  padding: 2px, 0;
+}
+
+/* .menu__item{
+  cursor: pointer;
+  margin:0;
+  padding: 10px 15px;
+} */
+
+.submenu__list {
+display: none;
+}
+
+.submenu__list a{
+  padding: 5px 10px;
+}
+
+.dropmob[open] .submenu__list {
+  display: block;
+    margin: 2px 0;
+}
+
+.submenu__item {
+margin: 0;
+padding: 0 10px;
+cursor: pointer;
+}
+
+.submenu__item:active {
+  background-color: rgb(115, 4, 251, .05);
+}
+.log ~ p {
+  color: black;
+  font-size: 1em;
+  text-align: left;
+  margin: 20px 0;
+}
 }
